@@ -1,0 +1,20 @@
+@import "../app.component.scss";
+
+.table-section {
+  margin: 25px auto;
+  width: 70%;
+  max-height: 316px;
+  overflow-y: auto;
+  button {
+    width: 120px;
+    margin-right: 20px;
+  }
+  button:hover {
+    color: white;
+    background-color: rgb(23, 23, 158);
+  }
+  th,
+  td {
+    text-align: center;
+  }
+}

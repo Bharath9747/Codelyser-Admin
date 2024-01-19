@@ -1,0 +1,42 @@
+<section class="testcase-section">
+  <mat-card>
+    <p>
+      <mat-form-field appearance="fill">
+        <mat-label>TestCase Count</mat-label>
+        <input
+          matInput
+          type="number"
+          min="1"
+          [(ngModel)]="testCaseCount"
+          (change)="generateTestCases()"
+        />
+      </mat-form-field>
+    </p>
+    <p *ngFor="let testCase of testCases; let i = index">
+      <mat-form-field appearance="fill">
+        <mat-label>Input {{ i + 1 }}</mat-label>
+        <input matInput [(ngModel)]="testCase.input" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Output {{ i + 1 }}</mat-label>
+        <input matInput [(ngModel)]="testCase.output" />
+      </mat-form-field>
+    </p>
+    <button
+      mat-raised-button
+      color="primary"
+      class="button-footer"
+      (click)="onSubmit()"
+    >
+      Save Question
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      class="button-footer"
+      (click)="navigate('view-question')"
+    >
+      Back
+    </button>
+  </mat-card>
+</section>
