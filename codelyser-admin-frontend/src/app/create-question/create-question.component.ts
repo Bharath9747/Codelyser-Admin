@@ -41,7 +41,7 @@ export class CreateQuestionComponent implements OnInit {
 
       this.httpService.saveQuestion(question).subscribe(
         (data) => {
-           alert(data['result']);
+          alert(data['result']);
           this.navigate('view-question');
         },
         (error) => {

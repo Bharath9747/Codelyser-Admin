@@ -7,7 +7,7 @@ import { HomeComponent } from './home/home.component';
 import { CreateUserComponent } from './create-user/create-user.component';
 import { CreateTestComponent } from './create-test/create-test.component';
 import { AssignTestComponent } from './assign-test/assign-test.component';
-import { QuestionComponent } from './question/question.component';
+
 import { CreateTestcaseComponent } from './create-testcase/create-testcase.component';
 import { ViewQuestionComponent } from './view-question/view-question.component';
 import { CreateTemplateComponent } from './create-template/create-template.component';
@@ -18,10 +18,7 @@ const routes: Routes = [
     path: '',
     component: HomeComponent,
   },
-  {
-    path: 'question',
-    component: QuestionComponent,
-  },
+
   {
     path: 'create-question',
     component: CreateQuestionComponent,
