@@ -10,11 +10,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class CandidateServiceImpl implements CandidateService {
+
+
     @Override
     public List<CandidateDTO> uploadData(MultipartFile file) {
         if (file.isEmpty()) {
@@ -30,10 +34,9 @@ public class CandidateServiceImpl implements CandidateService {
                 CandidateDTO candidateDTO = new CandidateDTO();
                 candidateDTO.setName(row.getCell(0).toString());
                 candidateDTO.setEmail(row.getCell(1).toString());
-                candidateDTO.setPassword(row.getCell(2).toString());
+                candidateDTO.setPassword(hashPassword(row.getCell(2).toString()));
                 list.add(candidateDTO);
             }
-            System.out.println(list);
             return list;
         } catch (IOException e) {
 
@@ -41,4 +44,24 @@ public class CandidateServiceImpl implements CandidateService {
         }
 
     }
+    public static String hashPassword(String password) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+
+            byte[] passwordBytes = password.getBytes();
+
+            byte[] hashedBytes = digest.digest(passwordBytes);
+
+            StringBuilder hexStringBuilder = new StringBuilder();
+            for (byte b : hashedBytes) {
+                hexStringBuilder.append(String.format("%02x", b));
+            }
+
+            return hexStringBuilder.toString();
+        } catch (NoSuchAlgorithmException e) {
+
+            return null;
+        }
+    }
+
 }
