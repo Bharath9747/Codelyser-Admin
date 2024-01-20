@@ -7,27 +7,20 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "testcase")
-public class TestCase {
+public class Candidate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(columnDefinition = "LONGTEXT")
-    private String input;
-    @Column(columnDefinition = "LONGTEXT")
-    private String output;
-
+    private String name;
+    private String password;
+    private String email;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "question_id")
+    @JoinColumn(name = "test_id")
     @JsonIgnore
-    private Question question;
-
+    private Test test;
 }
-

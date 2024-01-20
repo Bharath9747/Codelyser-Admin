@@ -10,7 +10,7 @@ import { CreateQuestionComponent } from './create-question/create-question.compo
 import { NotFoundComponent } from './not-found/not-found.component';
 import { HomeComponent } from './home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CreateUserComponent } from './create-user/create-user.component';
+import { CreateCandidateComponent } from './create-candidate/create-candidate.component';
 import { CreateTestComponent } from './create-test/create-test.component';
 import { AssignTestComponent } from './assign-test/assign-test.component';
 import { MatInputModule } from '@angular/material/input';
@@ -31,6 +31,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { QuestionDialogComponent } from './question-dialog/question-dialog.component';
 import { ViewTestComponent } from './view-test/view-test.component';
+import { ViewCandidateComponent } from './view-canidate/view-candidate.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,7 @@ import { ViewTestComponent } from './view-test/view-test.component';
     HomeComponent,
     CreateQuestionComponent,
     NotFoundComponent,
-    CreateUserComponent,
+    CreateCandidateComponent,
     CreateTestComponent,
     AssignTestComponent,
 
@@ -47,6 +48,7 @@ import { ViewTestComponent } from './view-test/view-test.component';
     CreateTemplateComponent,
     QuestionDialogComponent,
     ViewTestComponent,
+    ViewCandidateComponent,
   ],
   imports: [
     BrowserModule,

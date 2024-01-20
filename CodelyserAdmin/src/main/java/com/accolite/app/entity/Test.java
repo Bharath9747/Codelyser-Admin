@@ -1,6 +1,7 @@
 package com.accolite.app.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,4 +30,9 @@ public class Test {
             inverseJoinColumns = @JoinColumn(name = "question_id")
     )
     List<Question> questions = new ArrayList<>();
+
+    @OneToMany(mappedBy = "test", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Candidate> candidate;
+
 }
