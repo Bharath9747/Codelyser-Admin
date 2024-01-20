@@ -11,6 +11,7 @@ import { QuestionComponent } from './question/question.component';
 import { CreateTestcaseComponent } from './create-testcase/create-testcase.component';
 import { ViewQuestionComponent } from './view-question/view-question.component';
 import { CreateTemplateComponent } from './create-template/create-template.component';
+import { ViewTestComponent } from './view-test/view-test.component';
 
 const routes: Routes = [
   {
@@ -44,6 +45,10 @@ const routes: Routes = [
   {
     path: 'create-test',
     component: CreateTestComponent,
+  },
+  {
+    path: 'view-test',
+    component: ViewTestComponent,
   },
   {
     path: 'assign-test',

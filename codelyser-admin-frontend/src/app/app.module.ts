@@ -30,6 +30,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { QuestionDialogComponent } from './question-dialog/question-dialog.component';
+import { ViewTestComponent } from './view-test/view-test.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { QuestionDialogComponent } from './question-dialog/question-dialog.compo
     CreateTestcaseComponent,
     CreateTemplateComponent,
     QuestionDialogComponent,
+    ViewTestComponent,
   ],
   imports: [
     BrowserModule,

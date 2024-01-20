@@ -8,6 +8,8 @@ public class QuestionDTO {
     private Long id;
     private String title;
     private String description;
+    private String level;
+    private Integer score;
     private List<TemplateDTO> templates;
     private List<TestCaseDTO> testcases;
 }
