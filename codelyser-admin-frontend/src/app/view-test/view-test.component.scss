@@ -1,0 +1,12 @@
+@import "../app.component.scss";
+.table-section {
+  margin: 25px auto;
+  width: 60%;
+  max-height: 316px;
+  overflow-y: auto;
+
+  th,
+  td {
+    text-align: center;
+  }
+}

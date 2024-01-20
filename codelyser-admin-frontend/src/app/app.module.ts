@@ -21,7 +21,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
-import { QuestionComponent } from './question/question.component';
+
 import { ViewQuestionComponent } from './view-question/view-question.component';
 import { CreateTestcaseComponent } from './create-testcase/create-testcase.component';
 import { CreateTemplateComponent } from './create-template/create-template.component';
@@ -41,7 +41,7 @@ import { ViewTestComponent } from './view-test/view-test.component';
     CreateUserComponent,
     CreateTestComponent,
     AssignTestComponent,
-    QuestionComponent,
+
     ViewQuestionComponent,
     CreateTestcaseComponent,
     CreateTemplateComponent,

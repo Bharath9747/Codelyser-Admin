@@ -18,9 +18,9 @@ import { QuestionDialogComponent } from '../question-dialog/question-dialog.comp
   styleUrl: './view-question.component.scss',
 })
 export class ViewQuestionComponent implements OnInit {
-  displayedColumns: string[] = ['index', 'title', 'actions'];
+  displayedColumns: string[] = ['index', 'title', 'score', 'level', 'actions'];
   dataSource: Question[] = [];
-  panelOpenState = false;
+
   constructor(
     private httpService: HttpService,
     private router: Router,

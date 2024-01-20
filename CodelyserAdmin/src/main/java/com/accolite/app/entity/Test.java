@@ -21,7 +21,7 @@ public class Test {
     @Column(unique = true)
     private String title;
 
-    private Long totalScore;
+    private Integer totalScore;
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "test_question",

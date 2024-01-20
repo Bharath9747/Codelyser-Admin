@@ -3,13 +3,7 @@
   <p>
     {{ question.description }}
   </p>
-  <h4>TestCase Count : {{ question.testcases?.length }}</h4>
-  <h4 class="inline">
-    Templates&nbsp;&nbsp;&nbsp;Available&nbsp;&nbsp;&nbsp;for
-    <div class="template-languages" *ngFor="let template of question.templates">
-      {{ template.language }}
-    </div>
-  </h4>
+  <h4>TestCases Count : {{ question.testcases?.length }}</h4>
 
   <button mat-button (click)="onClose()">Close</button>
 </section>

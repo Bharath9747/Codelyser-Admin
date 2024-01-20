@@ -81,6 +81,8 @@ public class QuestionServiceImpl implements QuestionService {
         dto.setId(x.getId());
         dto.setDescription(x.getDescription());
         dto.setTitle(x.getTitle());
+        dto.setScore(x.getScore());
+        dto.setLevel(x.getLevel());
         if (x.getTemplates() != null)
             dto.setTemplates(convertTemplatesToDTOs(x.getTemplates()));
         if (x.getTestCases() != null)
