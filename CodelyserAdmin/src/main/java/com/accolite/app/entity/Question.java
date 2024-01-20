@@ -2,11 +2,11 @@ package com.accolite.app.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -23,6 +23,8 @@ public class Question {
     private String title;
     @Column(columnDefinition = "LONGTEXT")
     private String description;
+    private String level;
+    private Integer score;
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     @JsonIgnore
@@ -31,5 +33,8 @@ public class Question {
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Template> templates;
+
+    @ManyToMany(mappedBy = "questions")
+    List<Test> tests = new ArrayList<>();
 
 }

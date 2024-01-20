@@ -26,6 +26,8 @@ public class QuestionServiceImpl implements QuestionService {
             Question question = new Question();
             question.setTitle(questionDTO.getTitle());
             question.setDescription(questionDTO.getDescription());
+            question.setLevel(questionDTO.getLevel());
+            question.setScore(questionDTO.getScore());
             questionRepository.save(question);
         } else {
             Question question = questionRepository.findById(questionDTO.getId()).get();
