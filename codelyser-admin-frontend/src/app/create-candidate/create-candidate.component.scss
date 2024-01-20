@@ -1,0 +1,48 @@
+@import "../app.component.scss";
+
+.form {
+  padding: 10px;
+
+  p {
+    margin-left: 15px;
+    margin-top: 10px;
+    mat-form-field {
+      width: 100%;
+    }
+  }
+  .testsection {
+    display: flex;
+    button {
+      height: 55px;
+    }
+  }
+}
+mat-card {
+  width: 100%;
+
+  padding: 10px;
+}
+
+.mat-table {
+  width: 60%;
+  margin: 0 auto;
+  overflow-y: auto;
+  border-collapse: collapse;
+  th,
+  td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+    width: 25%;
+  }
+  th {
+    background-color: #f2f2f2;
+  }
+  tbody {
+    max-height: inherit;
+    overflow-y: auto;
+  }
+  .mat-checkbox-layout {
+    vertical-align: middle;
+  }
+}
