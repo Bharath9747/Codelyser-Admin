@@ -40,6 +40,7 @@ public class TestServiceImpl implements TestService {
         tests.forEach(
                 x->{
                     TestDTO dto = new TestDTO();
+                    dto.setId(x.getId());
                     dto.setTitle(x.getTitle());
                     dto.setTotalScore(x.getTotalScore());
                     testDTO.add(dto);

@@ -12,12 +12,14 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name = "candidate_test")
 public class Candidate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String password;
+    @Column(unique = true)
     private String email;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "test_id")

@@ -10,4 +10,5 @@ public class TestDTO {
     private String title;
     private Integer totalScore;
     private List<Long> questionIds;
+    private List<CandidateDTO> candidates;
 }

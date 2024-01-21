@@ -10,5 +10,6 @@ public class CandidateDTO {
     private String name;
     private String password;
     private String email;
-    private Test test;
+    private TestDTO test;
+    private TestResultDTO testResult;
 }
