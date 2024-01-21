@@ -1,6 +1,7 @@
 package com.accolite.app.controller;
 
 import com.accolite.app.dto.CandidateDTO;
+import com.accolite.app.dto.QuestionDTO;
 import com.accolite.app.dto.TestDTO;
 import com.accolite.app.service.CandidateService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,10 @@ public class CandidateController {
         Map<String, String> response = new HashMap<>();
         response.put("result", candidateService.assignTest(testDTO));
         return ResponseEntity.ok(response);
+    }
+    @GetMapping("/all")
+    public List<CandidateDTO> getCandidates(){
+        return candidateService.getCandidates();
     }
 
 }

@@ -4,6 +4,7 @@ import com.accolite.app.dto.CandidateDTO;
 import com.accolite.app.dto.TestDTO;
 import com.accolite.app.entity.Candidate;
 import com.accolite.app.entity.Test;
+import com.accolite.app.repository.CandidateRepository;
 import com.accolite.app.repository.TestRepository;
 import com.accolite.app.service.CandidateService;
 import org.apache.poi.ss.usermodel.Row;
@@ -25,6 +26,8 @@ public class CandidateServiceImpl implements CandidateService {
 
     @Autowired
     TestRepository testRepository;
+    @Autowired
+    CandidateRepository candidateRepository;
 
     @Override
     public List<CandidateDTO> uploadData(MultipartFile file) {
@@ -54,26 +57,45 @@ public class CandidateServiceImpl implements CandidateService {
     public String assignTest(TestDTO testDTO) {
         Test test = testRepository.findById(testDTO.getId()).get();
         List<Candidate> candidates = test.getCandidate();
-        if(candidates==null)
-            test.setCandidate(convertCandidateToEntity(testDTO.getCandidates(),test));
+        if (candidates == null)
+            test.setCandidate(convertCandidateToEntity(testDTO.getCandidates(), test));
         else {
-            candidates.addAll(convertCandidateToEntity(testDTO.getCandidates(),test));
+            candidates.addAll(convertCandidateToEntity(testDTO.getCandidates(), test));
             test.setCandidate(candidates);
         }
         testRepository.save(test);
         return "Test Assigned";
     }
 
+    @Override
+    public List<CandidateDTO> getCandidates() {
+        List<Candidate> list = candidateRepository.findAll();
+        List<CandidateDTO> candidates = new ArrayList<>();
+        list.forEach(
+                x -> {
+                    CandidateDTO dto = new CandidateDTO();
+                    dto.setName(x.getName());
+                    dto.setEmail(x.getEmail());
+                    dto.setTest(convertTestToDTO(x.getTest()));
+                    candidates.add(dto);
+                }
+        );
+        for (CandidateDTO candidate : candidates) {
+            System.out.println(candidate.getTest());
+        }
+        return candidates;
+    }
+
     private List<Candidate> convertCandidateToEntity(List<CandidateDTO> candidates, Test test) {
         List<Candidate> list = new ArrayList<>();
         candidates.forEach(
-                x->{
-                   Candidate candidate = new Candidate();
-                   candidate.setName(x.getName());
-                   candidate.setEmail(x.getEmail());
-                   candidate.setPassword(x.getPassword());
-                   candidate.setTest(test);
-                   list.add(candidate);
+                x -> {
+                    Candidate candidate = new Candidate();
+                    candidate.setName(x.getName());
+                    candidate.setEmail(x.getEmail());
+                    candidate.setPassword(x.getPassword());
+                    candidate.setTest(test);
+                    list.add(candidate);
                 }
         );
         return list;
@@ -93,6 +115,15 @@ public class CandidateServiceImpl implements CandidateService {
 
             return null;
         }
+    }
+
+    private TestDTO convertTestToDTO(Test test) {
+
+        TestDTO dto = new TestDTO();
+        dto.setId(test.getId());
+        dto.setTitle(test.getTitle());
+        dto.setTotalScore(test.getTotalScore());
+        return dto;
     }
 
 }
