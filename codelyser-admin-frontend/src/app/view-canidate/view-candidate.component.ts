@@ -16,7 +16,6 @@ export class ViewCandidateComponent implements OnInit {
         if (!data) alert('Create a Candidate First');
         else {
           this.dataSource = data;
-          console.log(this.dataSource);
         }
       },
       (error) => {
