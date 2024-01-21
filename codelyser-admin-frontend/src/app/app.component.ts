@@ -8,4 +8,6 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   constructor() {}
+
+  opened = false;
 }
