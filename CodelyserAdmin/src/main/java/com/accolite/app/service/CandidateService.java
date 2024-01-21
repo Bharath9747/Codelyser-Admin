@@ -10,4 +10,6 @@ public interface CandidateService {
     List<CandidateDTO> uploadData(MultipartFile file);
 
     String assignTest(TestDTO testDTO);
+
+    List<CandidateDTO> getCandidates();
 }

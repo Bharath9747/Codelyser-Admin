@@ -56,4 +56,7 @@ export class HttpService {
       options
     );
   }
+  getCanidate(): Observable<Candidate[]> {
+    return this.http.get<Candidate[]>(`${this.apiCandidate}/all`);
+  }
 }
