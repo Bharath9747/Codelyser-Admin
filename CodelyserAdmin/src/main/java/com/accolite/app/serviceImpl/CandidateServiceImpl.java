@@ -1,5 +1,6 @@
 package com.accolite.app.serviceImpl;
 
+import com.accolite.app.convertor.ConvertorService;
 import com.accolite.app.dto.CandidateDTO;
 import com.accolite.app.dto.TestDTO;
 import com.accolite.app.dto.TestResultDTO;
@@ -10,6 +11,8 @@ import com.accolite.app.repository.CandidateRepository;
 import com.accolite.app.repository.TestRepository;
 import com.accolite.app.repository.TestResultRepository;
 import com.accolite.app.service.CandidateService;
+import com.accolite.app.util.UtilityService;
+import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -25,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class CandidateServiceImpl implements CandidateService {
 
     @Autowired
@@ -33,6 +37,10 @@ public class CandidateServiceImpl implements CandidateService {
     CandidateRepository candidateRepository;
     @Autowired
     TestResultRepository testResultRepository;
+
+    private final ConvertorService service;
+
+    private final UtilityService utilityService;
 
     @Override
     public List<CandidateDTO> uploadData(MultipartFile file) {
@@ -48,7 +56,7 @@ public class CandidateServiceImpl implements CandidateService {
                 CandidateDTO candidateDTO = new CandidateDTO();
                 candidateDTO.setName(row.getCell(0).toString());
                 candidateDTO.setEmail(row.getCell(1).toString());
-                candidateDTO.setPassword(hashPassword(row.getCell(2).toString()));
+                candidateDTO.setPassword(utilityService.hashPassword(row.getCell(2).toString()));
                 list.add(candidateDTO);
             }
             return list;
@@ -63,9 +71,9 @@ public class CandidateServiceImpl implements CandidateService {
         Test test = testRepository.findById(testDTO.getId()).get();
         List<Candidate> candidates = test.getCandidate();
         if (candidates == null)
-            test.setCandidate(convertCandidateToEntity(testDTO.getCandidates(), test));
+            test.setCandidate(service.convertCandidateToEntity(testDTO.getCandidates(), test));
         else {
-            candidates.addAll(convertCandidateToEntity(testDTO.getCandidates(), test));
+            candidates.addAll(service.convertCandidateToEntity(testDTO.getCandidates(), test));
             test.setCandidate(candidates);
         }
         testRepository.save(test);
@@ -81,7 +89,7 @@ public class CandidateServiceImpl implements CandidateService {
                     CandidateDTO dto = new CandidateDTO();
                     dto.setName(x.getName());
                     dto.setEmail(x.getEmail());
-                    dto.setTest(convertTestToDTO(x.getTest()));
+                    dto.setTest(service.convertTestToDTO(x.getTest()));
                     TestResult testResult = testResultRepository.findById(x.getId()).orElse(null);
                     if(testResult!=null)
                     {
@@ -96,44 +104,6 @@ public class CandidateServiceImpl implements CandidateService {
         return candidates;
     }
 
-    private List<Candidate> convertCandidateToEntity(List<CandidateDTO> candidates, Test test) {
-        List<Candidate> list = new ArrayList<>();
-        candidates.forEach(
-                x -> {
-                    Candidate candidate = new Candidate();
-                    candidate.setName(x.getName());
-                    candidate.setEmail(x.getEmail());
-                    candidate.setPassword(x.getPassword());
-                    candidate.setTest(test);
-                    list.add(candidate);
-                }
-        );
-        return list;
-    }
 
-    public static String hashPassword(String password) {
-        try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] passwordBytes = password.getBytes();
-            byte[] hashedBytes = digest.digest(passwordBytes);
-            StringBuilder hexStringBuilder = new StringBuilder();
-            for (byte b : hashedBytes) {
-                hexStringBuilder.append(String.format("%02x", b));
-            }
-            return hexStringBuilder.toString();
-        } catch (NoSuchAlgorithmException e) {
-
-            return null;
-        }
-    }
-
-    private TestDTO convertTestToDTO(Test test) {
-
-        TestDTO dto = new TestDTO();
-        dto.setId(test.getId());
-        dto.setTitle(test.getTitle());
-        dto.setTotalScore(test.getTotalScore());
-        return dto;
-    }
 
 }
