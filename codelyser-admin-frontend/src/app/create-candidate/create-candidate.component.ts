@@ -11,7 +11,18 @@ import { Test } from '../model/test.model';
 })
 export class CreateCandidateComponent implements OnInit {
   constructor(private httpService: HttpService, private route: Router) {}
-
+  assign() {
+    this.selectedTest.candidates = this.candidates;
+    this.httpService.assignTest(this.selectedTest).subscribe(
+      (data) => {
+        alert('Test Assigned');
+        this.route.navigate(['/view-candidate']);
+      },
+      (error) => {
+        alert('Error in Assigning Test');
+      }
+    );
+  }
   ngOnInit(): void {
     this.selectedTest = this.selectedTest as Test;
     this.httpService.getTest().subscribe(

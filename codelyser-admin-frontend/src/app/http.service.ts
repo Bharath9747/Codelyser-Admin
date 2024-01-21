@@ -46,4 +46,14 @@ export class HttpService {
   getTest(): Observable<Test[]> {
     return this.http.get<Question[]>(`${this.apiTest}/all`);
   }
+  assignTest(test: Test): Observable<{ [key: string]: string }> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    const options = { headers: headers };
+
+    return this.http.post<{ [key: string]: string }>(
+      `${this.apiCandidate}/assign`,
+      test,
+      options
+    );
+  }
 }
