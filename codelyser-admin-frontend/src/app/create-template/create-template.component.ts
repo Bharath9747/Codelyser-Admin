@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Template } from '../model/template.model';
 import { Question } from '../model/question.model';
-import { HttpService } from '../http.service';
+import { HttpService } from '../service/http.service';
 
 @Component({
   selector: 'app-create-template',
@@ -27,9 +27,6 @@ export class CreateTemplateComponent implements OnInit {
       language: language,
     }));
   }
-  navigate(page: string) {
-    this.route.navigate(['/' + page]);
-  }
   onSubmit() {
     const question: Question = {
       id: this.questionId,
@@ -38,7 +35,8 @@ export class CreateTemplateComponent implements OnInit {
     this.httpService.saveQuestion(question).subscribe(
       (data) => {
         alert(data['result']);
-        this.navigate('view-question');
+        this.route.navigate(['/' + 'view-question']);
+        
       },
       (error) => {
         console.error('Error', error);

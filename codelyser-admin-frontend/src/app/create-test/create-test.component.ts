@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { HttpService } from '../http.service';
+import { HttpService } from '../service/http.service';
 import { Question } from '../model/question.model';
 import { Test } from '../model/test.model';
 
@@ -11,11 +11,7 @@ import { Test } from '../model/test.model';
   styleUrl: './create-test.component.scss',
 })
 export class CreateTestComponent {
-  constructor(
-    
-    private httpService: HttpService,
-    private route: Router
-  ) {}
+  constructor(private httpService: HttpService, private router: Router) {}
   questions: Question[] = [];
   questionIds: number[] = [];
   title!: string;
@@ -36,16 +32,14 @@ export class CreateTestComponent {
     this.httpService.saveTest(test).subscribe(
       (data) => {
         alert(data['result']);
-        this.navigate('view-test');
+        this.router.navigate(['/view-test']);
       },
       (error) => {
         console.error('Error', error);
       }
     );
   }
-  navigate(page: string) {
-    this.route.navigate(['/' + page]);
-  }
+
   ngOnInit(): void {
     this.httpService.getQuestion().subscribe(
       (data) => {

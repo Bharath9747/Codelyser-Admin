@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Question } from '../model/question.model';
-import { HttpService } from '../http.service';
+import { HttpService } from '../service/http.service';
 import { Router } from '@angular/router';
 import {
   MAT_DIALOG_DATA,

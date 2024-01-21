@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HttpService } from '../http.service';
+import { HttpService } from '../service/http.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TestCase } from '../model/testcase.model';
 import { Question } from '../model/question.model';
@@ -25,9 +25,7 @@ export class CreateTestcaseComponent {
   generateTestCases() {
     this.testCases = Array(this.testCaseCount).fill({ input: '', output: '' });
   }
-  navigate(page: string) {
-    this.route.navigate(['/' + page]);
-  }
+
   onSubmit() {
     const question: Question = {
       id: this.questionId,
@@ -36,7 +34,7 @@ export class CreateTestcaseComponent {
     this.httpService.saveQuestion(question).subscribe(
       (data) => {
         alert(data['result']);
-        this.navigate('view-question');
+        this.route.navigate(['/view-question']);
       },
       (error) => {
         console.error('Error', error);

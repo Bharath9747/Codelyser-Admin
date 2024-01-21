@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpService } from '../http.service';
+import { HttpService } from '../service/http.service';
 import { Candidate } from '../model/candidate.model';
 
 @Component({
@@ -15,7 +15,7 @@ export class ViewCandidateComponent implements OnInit {
     'Test Ended',
     'Test Score Not Calculated',
   ];
-  constructor(private httpService: HttpService, private router: Router) {}
+  constructor(private httpService: HttpService) {}
   ngOnInit(): void {
     this.httpService.getCanidate().subscribe(
       (data) => {
@@ -52,9 +52,7 @@ export class ViewCandidateComponent implements OnInit {
   ];
   dataSource: Candidate[] = [];
   candidateStatus: string[] = [];
-  navigate(page: string) {
-    this.router.navigate(['/' + page]);
-  }
+
   viewScore(candidate: Candidate) {
     console.log(candidate);
   }

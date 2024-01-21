@@ -6,7 +6,6 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { HomeComponent } from './home/home.component';
 import { CreateCandidateComponent } from './create-candidate/create-candidate.component';
 import { CreateTestComponent } from './create-test/create-test.component';
-import { AssignTestComponent } from './assign-test/assign-test.component';
 
 import { CreateTestcaseComponent } from './create-testcase/create-testcase.component';
 import { ViewQuestionComponent } from './view-question/view-question.component';
@@ -45,10 +44,7 @@ const routes: Routes = [
     path: 'view-test',
     component: ViewTestComponent,
   },
-  {
-    path: 'assign-test',
-    component: AssignTestComponent,
-  },
+
   {
     path: 'create-candidate',
     component: CreateCandidateComponent,

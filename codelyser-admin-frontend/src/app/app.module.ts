@@ -12,7 +12,7 @@ import { HomeComponent } from './home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateCandidateComponent } from './create-candidate/create-candidate.component';
 import { CreateTestComponent } from './create-test/create-test.component';
-import { AssignTestComponent } from './assign-test/assign-test.component';
+
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -41,7 +41,6 @@ import { ViewCandidateComponent } from './view-canidate/view-candidate.component
     NotFoundComponent,
     CreateCandidateComponent,
     CreateTestComponent,
-    AssignTestComponent,
 
     ViewQuestionComponent,
     CreateTestcaseComponent,

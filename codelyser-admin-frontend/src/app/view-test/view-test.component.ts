@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Test } from '../model/test.model';
-import { HttpService } from '../http.service';
+import { HttpService } from '../service/http.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
@@ -23,8 +23,4 @@ export class ViewTestComponent implements OnInit {
   }
   displayedColumns: string[] = ['index', 'title', 'score'];
   dataSource: Test[] = [];
-
-  navigate(page: string) {
-    this.router.navigate(['/' + page]);
-  }
 }

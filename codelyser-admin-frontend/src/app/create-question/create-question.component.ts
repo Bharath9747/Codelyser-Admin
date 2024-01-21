@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Question } from '../model/question.model';
-import { HttpService } from '../http.service';
+import { HttpService } from '../service/http.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -17,7 +17,7 @@ export class CreateQuestionComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private httpService: HttpService,
-    private route: Router
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -32,9 +32,7 @@ export class CreateQuestionComponent implements OnInit {
       score: [0, [Validators.required, Validators.min(0), Validators.max(100)]],
     });
   }
-  navigate(page: string) {
-    this.route.navigate(['/' + page]);
-  }
+
   onSubmit() {
     if (this.myForm.valid) {
       const question: Question = this.myForm.value as Question;
@@ -42,7 +40,7 @@ export class CreateQuestionComponent implements OnInit {
       this.httpService.saveQuestion(question).subscribe(
         (data) => {
           alert(data['result']);
-          this.navigate('view-question');
+          this.router.navigate(['/' + 'view-question']);
         },
         (error) => {
           console.error('Error', error);
