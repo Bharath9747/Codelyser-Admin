@@ -22,6 +22,24 @@
         {{ element.test.title }}
       </td>
     </ng-container>
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Status</th>
+      <td mat-cell *matCellDef="let element; let i = index">
+        {{ candidateStatus[i] }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef>Action</th>
+      <td mat-cell *matCellDef="let element">
+        <button
+          mat-button
+          (click)="viewScore(element.testResult)"
+          [disabled]="!(element.testResult && element.testResult.status === 1)"
+        >
+          View Score
+        </button>
+      </td>
+    </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>

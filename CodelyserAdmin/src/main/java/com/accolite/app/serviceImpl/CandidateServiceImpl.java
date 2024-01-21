@@ -2,10 +2,13 @@ package com.accolite.app.serviceImpl;
 
 import com.accolite.app.dto.CandidateDTO;
 import com.accolite.app.dto.TestDTO;
+import com.accolite.app.dto.TestResultDTO;
 import com.accolite.app.entity.Candidate;
 import com.accolite.app.entity.Test;
+import com.accolite.app.entity.TestResult;
 import com.accolite.app.repository.CandidateRepository;
 import com.accolite.app.repository.TestRepository;
+import com.accolite.app.repository.TestResultRepository;
 import com.accolite.app.service.CandidateService;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -28,6 +31,8 @@ public class CandidateServiceImpl implements CandidateService {
     TestRepository testRepository;
     @Autowired
     CandidateRepository candidateRepository;
+    @Autowired
+    TestResultRepository testResultRepository;
 
     @Override
     public List<CandidateDTO> uploadData(MultipartFile file) {
@@ -77,12 +82,17 @@ public class CandidateServiceImpl implements CandidateService {
                     dto.setName(x.getName());
                     dto.setEmail(x.getEmail());
                     dto.setTest(convertTestToDTO(x.getTest()));
+                    TestResult testResult = testResultRepository.findById(x.getId()).orElse(null);
+                    if(testResult!=null)
+                    {
+                        TestResultDTO testResultDTO = new TestResultDTO();
+                        testResultDTO.setStatus(testResult.getStatus());
+                        testResultDTO.setScore(testResult.getScore());
+                        dto.setTestResult(testResultDTO);
+                    }
                     candidates.add(dto);
                 }
         );
-        for (CandidateDTO candidate : candidates) {
-            System.out.println(candidate.getTest());
-        }
         return candidates;
     }
 
