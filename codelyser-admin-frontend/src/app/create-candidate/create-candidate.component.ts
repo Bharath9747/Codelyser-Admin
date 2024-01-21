@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Candidate } from '../model/candidate.model';
 import { Router } from '@angular/router';
-import { HttpService } from '../http.service';
+import { HttpService } from '../service/http.service';
 import { Test } from '../model/test.model';
 
 @Component({
@@ -35,9 +35,7 @@ export class CreateCandidateComponent implements OnInit {
       }
     );
   }
-  navigate(page: string) {
-    this.route.navigate(['/' + page]);
-  }
+  
   tests: Test[] = [];
   candidates: Candidate[] = [];
   score: number = 0;

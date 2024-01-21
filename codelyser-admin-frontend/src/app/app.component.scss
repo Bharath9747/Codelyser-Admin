@@ -53,3 +53,43 @@ mat-list {
   width: 30%;
   text-transform: uppercase;
 }
+
+mat-card {
+  width: 100%;
+  padding: 10px;
+}
+.table-section {
+  margin: 25px auto;
+  width: 60%;
+  max-height: 316px;
+  overflow-y: auto;
+
+  th,
+  td {
+    text-align: center;
+  }
+}
+
+.mat-table {
+  width: 60%;
+  margin: 0 auto;
+  overflow-y: auto;
+  border-collapse: collapse;
+  th,
+  td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+    width: 25%;
+  }
+  th {
+    background-color: #f2f2f2;
+  }
+  tbody {
+    max-height: inherit;
+    overflow-y: auto;
+  }
+  .mat-checkbox-layout {
+    vertical-align: middle;
+  }
+}

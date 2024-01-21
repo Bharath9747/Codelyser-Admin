@@ -7,9 +7,7 @@ import { Router } from '@angular/router';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  constructor(private route: Router) {}
-  navigate(page: string) {
-    this.route.navigate(['/' + page]);
-  }
+  constructor() {}
+
   opened = false;
 }

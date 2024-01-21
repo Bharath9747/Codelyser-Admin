@@ -3,7 +3,7 @@
     <button mat-button (click)="opened = !opened">
       <mat-icon>menu</mat-icon>
     </button>
-    <button mat-button (click)="navigate('')">
+    <button mat-button routerLink="/">
       <mat-icon>home</mat-icon>
     </button>
   </mat-toolbar-row>
@@ -13,13 +13,13 @@
   <mat-sidenav [(opened)]="opened" mode="side">
     <mat-list>
       <mat-list-item
-        ><button (click)="navigate('view-question')">Question</button>
+        ><button routerLink="/view-question">Question</button>
       </mat-list-item>
       <mat-list-item
-        ><button (click)="navigate('view-test')">Test</button>
+        ><button routerLink="/view-test">Test</button>
       </mat-list-item>
       <mat-list-item
-        ><button (click)="navigate('view-candidate')">Candidate</button>
+        ><button routerLink="/view-candidate">Candidate</button>
       </mat-list-item>
     </mat-list>
   </mat-sidenav>

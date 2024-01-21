@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 
 import { Observable, ReplaySubject } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Question } from './model/question.model';
-import { Test } from './model/test.model';
-import { Candidate } from './model/candidate.model';
+import { Question } from '../model/question.model';
+import { Test } from '../model/test.model';
+import { Candidate } from '../model/candidate.model';
 
 @Injectable({
   providedIn: 'root',
