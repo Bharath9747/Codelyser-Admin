@@ -9,6 +9,12 @@ import { Candidate } from '../model/candidate.model';
   styleUrl: './view-candidate.component.scss',
 })
 export class ViewCandidateComponent implements OnInit {
+  testLabels: string[] = [
+    'Test Assigned',
+    'Test Started',
+    'Test Ended',
+    'Test Score Not Calculated',
+  ];
   constructor(private httpService: HttpService, private router: Router) {}
   ngOnInit(): void {
     this.httpService.getCanidate().subscribe(
@@ -16,6 +22,19 @@ export class ViewCandidateComponent implements OnInit {
         if (!data) alert('Create a Candidate First');
         else {
           this.dataSource = data;
+          for (let index = 0; index < this.dataSource.length; index++) {
+            const element = this.dataSource[index];
+            if (element.testResult == null)
+              this.candidateStatus[index] = this.testLabels[0];
+            else {
+              if (element.testResult.status === 0)
+                this.candidateStatus[index] = this.testLabels[1];
+              if (element.testResult.status === 1)
+                this.candidateStatus[index] = this.testLabels[2];
+              if (element.testResult.status === -1)
+                this.candidateStatus[index] = this.testLabels[3];
+            }
+          }
         }
       },
       (error) => {
@@ -23,10 +42,20 @@ export class ViewCandidateComponent implements OnInit {
       }
     );
   }
-  displayedColumns: string[] = ['index', 'name', 'email', 'testName'];
+  displayedColumns: string[] = [
+    'index',
+    'name',
+    'email',
+    'testName',
+    'status',
+    'action',
+  ];
   dataSource: Candidate[] = [];
-
+  candidateStatus: string[] = [];
   navigate(page: string) {
     this.router.navigate(['/' + page]);
+  }
+  viewScore(candidate: Candidate) {
+    console.log(candidate);
   }
 }
