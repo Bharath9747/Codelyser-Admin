@@ -13,7 +13,6 @@ import java.util.Map;
 @RestController
 @RequestMapping("/test")
 @CrossOrigin("http://localhost:4200")
-
 public class TestController {
     @Autowired
     TestService testService;

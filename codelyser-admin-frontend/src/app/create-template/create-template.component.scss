@@ -2,15 +2,22 @@
 
 .template-section {
   padding: 20px;
-  textarea {
-    border: 2px solid green;
-    border-radius: 5px;
-    padding: 5px;
-    margin-left: 15px;
+  .mat-card {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    textarea {
+      border: 2px solid green;
+      border-radius: 5px;
+      padding: 5px;
+      margin-left: 15px;
+      width: 40%;
+      margin-top: 15px;
+      font-family: Roboto, "Helvetica Neue", sans-serif;
 
-    margin-top: 15px;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
-    width: 98%;
-    resize: none;
+      resize: none;
+    }
   }
 }

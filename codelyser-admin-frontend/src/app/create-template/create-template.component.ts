@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Template } from '../model/template.model';
 import { Question } from '../model/question.model';
 import { HttpService } from '../service/http.service';
+import { languages } from '../util/constants';
 
 @Component({
   selector: 'app-create-template',
@@ -13,7 +14,7 @@ import { HttpService } from '../service/http.service';
 export class CreateTemplateComponent implements OnInit {
   questionId!: number;
   questionTitle!: string;
-  languages = ['Java', 'Cpp'];
+  languages = languages;
   templates: Template[] = [];
 
   constructor(
