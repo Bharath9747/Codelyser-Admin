@@ -1,5 +1,5 @@
 <section class="form">
-  <mat-card
+  <mat-card class="alert"
     ><input
       color="primary"
       class="button-footer"
@@ -7,6 +7,7 @@
       accept=".xlsx, .xls"
       (change)="onFileChange($event)"
     />
+    <p>(Column Name : Candidate Name & Candidate Email)</p>
   </mat-card>
   <mat-card>
     <form>

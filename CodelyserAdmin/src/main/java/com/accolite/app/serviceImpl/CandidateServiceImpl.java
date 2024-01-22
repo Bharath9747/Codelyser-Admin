@@ -60,9 +60,9 @@ public class CandidateServiceImpl implements CandidateService {
             for (int i = 1; i < rowCount; i++) {
                 Row row = sheet.getRow(i);
                 CandidateDTO candidateDTO = new CandidateDTO();
-                candidateDTO.setName(row.getCell(0).toString());
-                candidateDTO.setEmail(row.getCell(1).toString());
-                candidateDTO.setPassword(utilityService.hashPassword(row.getCell(2).toString()));
+                candidateDTO.setName(row.getCell(0).getStringCellValue());
+                candidateDTO.setEmail(row.getCell(1).getStringCellValue());
+                candidateDTO.setPassword(utilityService.hashPassword(candidateDTO.getEmail()));
                 list.add(candidateDTO);
             }
             return list;
