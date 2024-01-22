@@ -13,21 +13,23 @@ import java.util.Map;
 @RestController
 @RequestMapping("/question")
 @CrossOrigin("http://localhost:4200")
+
 public class QuestionController {
 
     @Autowired
     QuestionService questionService;
 
     @PostMapping("/save")
-    public ResponseEntity<Map<String, String>> saveQuestion(@RequestBody QuestionDTO questionDTO){
-        String res =  questionService.saveQuestion(questionDTO);
+    public ResponseEntity<Map<String, String>> saveQuestion(@RequestBody QuestionDTO questionDTO) {
+        String res = questionService.saveQuestion(questionDTO);
         Map<String, String> response = new HashMap<>();
         response.put("result", res);
         return ResponseEntity.ok(response);
 
     }
+
     @GetMapping("/all")
-    public List<QuestionDTO> getQuestions(){
+    public List<QuestionDTO> getQuestions() {
         return questionService.getQuestions();
     }
 }

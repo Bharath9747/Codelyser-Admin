@@ -89,7 +89,7 @@ public class ConvertorService {
                     dto.setTotalScore(x.getTotalScore());
                     List<QuestionDTO> list = new ArrayList<>();
                     x.getQuestions().forEach(
-                            question->{
+                            question -> {
                                 list.add(convertQuestionToDTO(question));
                             }
                     );
@@ -99,6 +99,7 @@ public class ConvertorService {
         );
         return testDTO;
     }
+
     public List<Candidate> convertCandidateToEntity(List<CandidateDTO> candidates, Test test) {
         List<Candidate> list = new ArrayList<>();
         candidates.forEach(
@@ -113,7 +114,6 @@ public class ConvertorService {
         );
         return list;
     }
-
 
 
     public TestDTO convertTestToDTO(Test test) {

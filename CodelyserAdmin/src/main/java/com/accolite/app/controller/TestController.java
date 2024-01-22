@@ -1,8 +1,6 @@
 package com.accolite.app.controller;
 
-import com.accolite.app.dto.QuestionDTO;
 import com.accolite.app.dto.TestDTO;
-import com.accolite.app.service.QuestionService;
 import com.accolite.app.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,15 +17,17 @@ import java.util.Map;
 public class TestController {
     @Autowired
     TestService testService;
+
     @PostMapping("/save")
-    public ResponseEntity<Map<String, String>> saveQuestion(@RequestBody TestDTO testDTO){
+    public ResponseEntity<Map<String, String>> saveQuestion(@RequestBody TestDTO testDTO) {
         String res = testService.saveTest(testDTO);
         Map<String, String> response = new HashMap<>();
         response.put("result", res);
         return ResponseEntity.ok(response);
     }
+
     @GetMapping("/all")
-    public List<TestDTO> getTest(){
+    public List<TestDTO> getTest() {
         return testService.getTest();
     }
 }

@@ -1,7 +1,6 @@
 package com.accolite.app.controller;
 
 import com.accolite.app.dto.CandidateDTO;
-import com.accolite.app.dto.QuestionDTO;
 import com.accolite.app.dto.TestDTO;
 import com.accolite.app.service.CandidateService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,14 +23,16 @@ public class CandidateController {
     public List<CandidateDTO> uploadData(@RequestParam("file") MultipartFile file) {
         return candidateService.uploadData(file);
     }
+
     @PostMapping("/assign")
     public ResponseEntity<Map<String, String>> assignTest(@RequestBody TestDTO testDTO) {
         Map<String, String> response = new HashMap<>();
         response.put("result", candidateService.assignTest(testDTO));
         return ResponseEntity.ok(response);
     }
+
     @GetMapping("/all")
-    public List<CandidateDTO> getCandidates(){
+    public List<CandidateDTO> getCandidates() {
         return candidateService.getCandidates();
     }
 

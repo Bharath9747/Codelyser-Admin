@@ -1,6 +1,6 @@
 package com.accolite.app.serviceImpl;
 
-import com.accolite.app.dto.QuestionDTO;
+import com.accolite.app.convertor.ConvertorService;
 import com.accolite.app.dto.TestDTO;
 import com.accolite.app.entity.Question;
 import com.accolite.app.entity.Test;
@@ -8,7 +8,6 @@ import com.accolite.app.exception.ApiRequestException;
 import com.accolite.app.repository.QuestionRepository;
 import com.accolite.app.repository.TestRepository;
 import com.accolite.app.service.TestService;
-import com.accolite.app.convertor.ConvertorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -36,16 +35,14 @@ public class TestServiceImpl implements TestService {
             test.setTotalScore(testDTO.getTotalScore());
             List<Question> questions = new ArrayList<>();
             testDTO.getQuestions().forEach(
-                    x->{
+                    x -> {
                         questions.add(questionRepository.findById(x.getId()).get());
                     }
             );
             test.setQuestions(questions);
             testRepository.save(test);
             return "Test Saved";
-        }
-        catch (DataIntegrityViolationException e)
-        {
+        } catch (DataIntegrityViolationException e) {
             throw new ApiRequestException("Duplicate Test", HttpStatus.BAD_REQUEST);
         }
     }
