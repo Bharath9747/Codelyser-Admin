@@ -36,7 +36,7 @@ export class CreateCandidateComponent implements OnInit {
       }
     );
   }
-  
+
   tests: Test[] = [];
   candidates: Candidate[] = [];
   score: number = 0;
@@ -48,14 +48,15 @@ export class CreateCandidateComponent implements OnInit {
     if (file) {
       this.httpService.uploadUser(file).subscribe(
         (response) => {
-          if (response.length == 0) alert('Error in Uploading Data');
+          if (response.length == 0) alert('There is no candidate details');
           else {
             alert('Data Uploaded');
             this.candidates = response;
           }
         },
         (error) => {
-          alert('Server not responding');
+          if (error['status'] == 400) alert(error['error']);
+          else alert('Server not responding');
         }
       );
     }
