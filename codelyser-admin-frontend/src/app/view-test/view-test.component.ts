@@ -17,7 +17,7 @@ export class ViewTestComponent implements OnInit {
         this.dataSource = data;
       },
       (error) => {
-        alert('Error in Getting Test');
+        alert('Server not responding');
       }
     );
   }

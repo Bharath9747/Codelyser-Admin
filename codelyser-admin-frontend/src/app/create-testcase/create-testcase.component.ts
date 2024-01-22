@@ -37,7 +37,7 @@ export class CreateTestcaseComponent {
         this.route.navigate(['/view-question']);
       },
       (error) => {
-        console.error('Error', error);
+        alert("Error in Saving Testcases")
       }
     );
   }

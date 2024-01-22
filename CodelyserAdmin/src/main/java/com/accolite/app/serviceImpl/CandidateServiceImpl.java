@@ -7,6 +7,7 @@ import com.accolite.app.dto.TestResultDTO;
 import com.accolite.app.entity.Candidate;
 import com.accolite.app.entity.Test;
 import com.accolite.app.entity.TestResult;
+import com.accolite.app.exception.ApiRequestException;
 import com.accolite.app.repository.CandidateRepository;
 import com.accolite.app.repository.TestRepository;
 import com.accolite.app.repository.TestResultRepository;
@@ -18,6 +19,8 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -68,16 +71,22 @@ public class CandidateServiceImpl implements CandidateService {
 
     @Override
     public String assignTest(TestDTO testDTO) {
-        Test test = testRepository.findById(testDTO.getId()).get();
-        List<Candidate> candidates = test.getCandidate();
-        if (candidates == null)
-            test.setCandidate(service.convertCandidateToEntity(testDTO.getCandidates(), test));
-        else {
-            candidates.addAll(service.convertCandidateToEntity(testDTO.getCandidates(), test));
-            test.setCandidate(candidates);
+        try {
+            Test test = testRepository.findById(testDTO.getId()).get();
+            List<Candidate> candidates = test.getCandidate();
+            if (candidates == null)
+                test.setCandidate(service.convertCandidateToEntity(testDTO.getCandidates(), test));
+            else {
+                candidates.addAll(service.convertCandidateToEntity(testDTO.getCandidates(), test));
+                test.setCandidate(candidates);
+            }
+            testRepository.save(test);
+            return "Test Assigned";
         }
-        testRepository.save(test);
-        return "Test Assigned";
+        catch (DataIntegrityViolationException e)
+        {
+            throw new ApiRequestException("Duplicate Candidate", HttpStatus.BAD_REQUEST);
+        }
     }
 
     @Override

@@ -19,7 +19,8 @@ export class CreateCandidateComponent implements OnInit {
         this.route.navigate(['/view-candidate']);
       },
       (error) => {
-        alert('Error in Assigning Test');
+        if (error['status'] === 400) alert(error['error']);
+        else alert('Server not responding');
       }
     );
   }
@@ -31,7 +32,7 @@ export class CreateCandidateComponent implements OnInit {
         if (this.tests.length == 0) alert('Create a Test First');
       },
       (error) => {
-        alert('Error in Getting Test Data');
+        alert('Server not responding');
       }
     );
   }
@@ -54,7 +55,7 @@ export class CreateCandidateComponent implements OnInit {
           }
         },
         (error) => {
-          alert('Error in Uploading Data');
+          alert('Server not responding');
         }
       );
     }
