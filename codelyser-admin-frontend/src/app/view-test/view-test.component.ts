@@ -3,6 +3,7 @@ import { Test } from '../model/test.model';
 import { HttpService } from '../service/http.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { TestDialogComponent } from '../test-dialog/test-dialog.component';
 
 @Component({
   selector: 'app-view-test',
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrl: './view-test.component.scss',
 })
 export class ViewTestComponent implements OnInit {
-  constructor(private httpService: HttpService, private router: Router) {}
+  constructor(private httpService: HttpService, private dialog: MatDialog) {}
   ngOnInit(): void {
     this.httpService.getTest().subscribe(
       (data) => {
@@ -21,6 +22,13 @@ export class ViewTestComponent implements OnInit {
       }
     );
   }
-  displayedColumns: string[] = ['index', 'title', 'score'];
+  displayedColumns: string[] = ['index', 'title', 'score', 'action'];
   dataSource: Test[] = [];
+  openDialog(test: Test) {
+    this.dialog.open(TestDialogComponent, {
+      data: test,
+      width: '600px',
+      height: '500px',
+    });
+  }
 }

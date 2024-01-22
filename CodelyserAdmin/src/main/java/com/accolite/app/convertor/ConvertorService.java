@@ -4,8 +4,6 @@ import com.accolite.app.dto.*;
 import com.accolite.app.entity.*;
 import org.springframework.stereotype.Service;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -45,17 +43,17 @@ public class ConvertorService {
                 .collect(Collectors.toList());
     }
 
-    public QuestionDTO convertQuestionToDTO(Question x) {
+    public QuestionDTO convertQuestionToDTO(Question question) {
         QuestionDTO dto = new QuestionDTO();
-        dto.setId(x.getId());
-        dto.setDescription(x.getDescription());
-        dto.setTitle(x.getTitle());
-        dto.setScore(x.getScore());
-        dto.setLevel(x.getLevel());
-        if (x.getTemplates() != null)
-            dto.setTemplates(convertTemplatesToDTOs(x.getTemplates()));
-        if (x.getTestCases() != null)
-            dto.setTestcases(convertTestCasesToDTOs(x.getTestCases()));
+        dto.setId(question.getId());
+        dto.setDescription(question.getDescription());
+        dto.setTitle(question.getTitle());
+        dto.setScore(question.getScore());
+        dto.setLevel(question.getLevel());
+        if (question.getTemplates() != null)
+            dto.setTemplates(convertTemplatesToDTOs(question.getTemplates()));
+        if (question.getTestCases() != null)
+            dto.setTestcases(convertTestCasesToDTOs(question.getTestCases()));
         return dto;
     }
 
@@ -89,6 +87,13 @@ public class ConvertorService {
                     dto.setId(x.getId());
                     dto.setTitle(x.getTitle());
                     dto.setTotalScore(x.getTotalScore());
+                    List<QuestionDTO> list = new ArrayList<>();
+                    x.getQuestions().forEach(
+                            question->{
+                                list.add(convertQuestionToDTO(question));
+                            }
+                    );
+                    dto.setQuestions(list);
                     testDTO.add(dto);
                 }
         );

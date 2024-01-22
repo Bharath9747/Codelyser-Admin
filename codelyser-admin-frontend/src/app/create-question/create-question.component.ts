@@ -28,7 +28,7 @@ export class CreateQuestionComponent implements OnInit {
   initForm() {
     this.myForm = this.fb.group({
       title: ['', Validators.required],
-      description: [''],
+      description: ['', Validators.required],
       level: ['', Validators.required],
       score: [0, [Validators.required, Validators.min(0), Validators.max(100)]],
     });

@@ -1,5 +1,6 @@
 package com.accolite.app.serviceImpl;
 
+import com.accolite.app.dto.QuestionDTO;
 import com.accolite.app.dto.TestDTO;
 import com.accolite.app.entity.Question;
 import com.accolite.app.entity.Test;
@@ -33,7 +34,13 @@ public class TestServiceImpl implements TestService {
             Test test = new Test();
             test.setTitle(testDTO.getTitle());
             test.setTotalScore(testDTO.getTotalScore());
-            test.setQuestions(getQuestion(testDTO.getQuestionIds()));
+            List<Question> questions = new ArrayList<>();
+            testDTO.getQuestions().forEach(
+                    x->{
+                        questions.add(questionRepository.findById(x.getId()).get());
+                    }
+            );
+            test.setQuestions(questions);
             testRepository.save(test);
             return "Test Saved";
         }
@@ -48,11 +55,5 @@ public class TestServiceImpl implements TestService {
         return service.convertTestToDTO(testRepository.findAll());
     }
 
-    private List<Question> getQuestion(List<Long> questionIds) {
-        List<Question> questions = new ArrayList<>();
-        for (Long id : questionIds) {
-            questions.add(questionRepository.findById(id).get());
-        }
-        return questions;
-    }
+
 }
