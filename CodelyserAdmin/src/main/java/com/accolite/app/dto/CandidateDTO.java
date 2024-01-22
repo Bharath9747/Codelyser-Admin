@@ -1,7 +1,5 @@
 package com.accolite.app.dto;
 
-import com.accolite.app.entity.Test;
-
 import lombok.Data;
 
 @Data

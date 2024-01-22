@@ -7,7 +7,7 @@ import java.security.NoSuchAlgorithmException;
 
 @Service
 public class UtilityService {
-    public  String hashPassword(String password) {
+    public String hashPassword(String password) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] passwordBytes = password.getBytes();

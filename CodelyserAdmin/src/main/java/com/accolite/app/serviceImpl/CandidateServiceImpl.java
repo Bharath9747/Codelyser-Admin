@@ -14,7 +14,6 @@ import com.accolite.app.repository.TestResultRepository;
 import com.accolite.app.service.CandidateService;
 import com.accolite.app.util.UtilityService;
 import lombok.RequiredArgsConstructor;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -26,8 +25,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,10 +46,9 @@ public class CandidateServiceImpl implements CandidateService {
     @Override
     public List<CandidateDTO> uploadData(MultipartFile file) {
         if (file.isEmpty()) {
-            throw  new ApiRequestException("File is Empty",HttpStatus.BAD_REQUEST);
+            throw new ApiRequestException("File is Empty", HttpStatus.BAD_REQUEST);
         }
-        try
-        {
+        try {
             Workbook workbook = new XSSFWorkbook(file.getInputStream());
             List<CandidateDTO> list = new ArrayList<>();
             Sheet sheet = workbook.getSheetAt(0);
@@ -67,7 +63,7 @@ public class CandidateServiceImpl implements CandidateService {
             }
             return list;
         } catch (IOException e) {
-            throw  new ApiRequestException("File Not Found",HttpStatus.NOT_FOUND);
+            throw new ApiRequestException("File Not Found", HttpStatus.NOT_FOUND);
         }
 
 
@@ -86,9 +82,7 @@ public class CandidateServiceImpl implements CandidateService {
             }
             testRepository.save(test);
             return "Test Assigned";
-        }
-        catch (DataIntegrityViolationException e)
-        {
+        } catch (DataIntegrityViolationException e) {
             throw new ApiRequestException("Duplicate Candidate", HttpStatus.BAD_REQUEST);
         }
     }
@@ -104,8 +98,7 @@ public class CandidateServiceImpl implements CandidateService {
                     dto.setEmail(x.getEmail());
                     dto.setTest(service.convertTestToDTO(x.getTest()));
                     TestResult testResult = testResultRepository.findById(x.getId()).orElse(null);
-                    if(testResult!=null)
-                    {
+                    if (testResult != null) {
                         TestResultDTO testResultDTO = new TestResultDTO();
                         testResultDTO.setStatus(testResult.getStatus());
                         testResultDTO.setScore(testResult.getScore());
@@ -116,7 +109,6 @@ public class CandidateServiceImpl implements CandidateService {
         );
         return candidates;
     }
-
 
 
 }

@@ -1,6 +1,5 @@
 package com.accolite.app.dto;
 
-import jakarta.persistence.Id;
 import lombok.Data;
 
 import java.time.LocalDateTime;

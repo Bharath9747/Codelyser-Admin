@@ -1,11 +1,11 @@
 package com.accolite.app.serviceImpl;
 
+import com.accolite.app.convertor.ConvertorService;
 import com.accolite.app.dto.QuestionDTO;
 import com.accolite.app.entity.Question;
 import com.accolite.app.exception.ApiRequestException;
 import com.accolite.app.repository.QuestionRepository;
 import com.accolite.app.service.QuestionService;
-import com.accolite.app.convertor.ConvertorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -36,9 +36,7 @@ public class QuestionServiceImpl implements QuestionService {
                 questionRepository.save(question);
             }
             return "Question Saved";
-        }
-        catch (DataIntegrityViolationException e)
-        {
+        } catch (DataIntegrityViolationException e) {
             throw new ApiRequestException("Duplicate Question", HttpStatus.BAD_REQUEST);
         }
 
