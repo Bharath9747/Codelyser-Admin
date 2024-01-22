@@ -14,6 +14,7 @@ export class CreateTestComponent {
   constructor(private httpService: HttpService, private router: Router) {}
   questions: Question[] = [];
   questionIds: number[] = [];
+  selectedQuestions: Question[] = [];
   title!: string;
   onSubmit() {
     if (this.questionIds.length === 0) {
@@ -24,11 +25,20 @@ export class CreateTestComponent {
       alert('Select Question range 1 - 4');
       return;
     }
+    for (let index = 0; index < this.questionIds.length; index++) {
+      const element = this.questionIds[index];
+
+      for (let i = 0; i < this.questions.length; i++) {
+        let question = this.questions[i];
+        if (question.id == element) this.selectedQuestions.push(question);
+      }
+    }
     let test = {
       title: this.title,
       totalScore: this.totalScore,
-      questionIds: this.questionIds,
+      questions: this.selectedQuestions,
     } as Test;
+
     this.httpService.saveTest(test).subscribe(
       (data) => {
         alert(data['result']);

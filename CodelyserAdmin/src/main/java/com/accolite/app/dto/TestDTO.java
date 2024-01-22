@@ -9,6 +9,6 @@ public class TestDTO {
     private Long id;
     private String title;
     private Integer totalScore;
-    private List<Long> questionIds;
+    private List<QuestionDTO> questions;
     private List<CandidateDTO> candidates;
 }

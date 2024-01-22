@@ -1,1 +1,10 @@
 @import "../app.component.scss";
+.table-section {
+  button {
+    width: 130px;
+  }
+  button:hover {
+    color: white;
+    background-color: rgb(23, 23, 158);
+  }
+}

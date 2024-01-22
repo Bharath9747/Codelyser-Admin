@@ -32,6 +32,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { QuestionDialogComponent } from './question-dialog/question-dialog.component';
 import { ViewTestComponent } from './view-test/view-test.component';
 import { ViewCandidateComponent } from './view-canidate/view-candidate.component';
+import { TestDialogComponent } from './test-dialog/test-dialog.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { ViewCandidateComponent } from './view-canidate/view-candidate.component
     QuestionDialogComponent,
     ViewTestComponent,
     ViewCandidateComponent,
+    TestDialogComponent,
   ],
   imports: [
     BrowserModule,
