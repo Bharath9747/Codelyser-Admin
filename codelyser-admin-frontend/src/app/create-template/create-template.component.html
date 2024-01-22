@@ -1,29 +1,30 @@
 <section class="template-section">
-  <h4>Question ID {{ questionId }}</h4>
+  <h4>{{ questionTitle }}</h4>
+  <mat-card>
+    <div *ngFor="let language of languages; let i = index">
+      <textarea
+        cols="30"
+        rows="10"
+        placeholder="{{ language }} code"
+        [(ngModel)]="templates[i].code"
+      ></textarea>
+    </div>
+    <button
+      mat-raised-button
+      color="primary"
+      class="button-footer"
+      (click)="onSubmit()"
+    >
+      Save Template
+    </button>
 
-  <div *ngFor="let language of languages; let i = index">
-    <textarea
-      cols="30"
-      rows="10"
-      placeholder="{{ language }} code"
-      [(ngModel)]="templates[i].code"
-    ></textarea>
-  </div>
-  <button
-    mat-raised-button
-    color="primary"
-    class="button-footer"
-    (click)="onSubmit()"
-  >
-    Save Template
-  </button>
-
-  <button
-    mat-raised-button
-    color="primary"
-    class="button-footer"
-    routerLink="/view-question"
-  >
-    Back
-  </button>
+    <button
+      mat-raised-button
+      color="primary"
+      class="button-footer"
+      routerLink="/view-question"
+    >
+      Back
+    </button>
+  </mat-card>
 </section>
