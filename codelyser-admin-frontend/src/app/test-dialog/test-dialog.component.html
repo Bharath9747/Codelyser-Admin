@@ -1,10 +1,10 @@
 <section class="test">
-  <h4>{{ test.title }}</h4>
+  <h3>{{ test.title }}</h3>
   <div>
-    Questions in this test 
-    <div *ngFor="let question of test.questions">
-      <h4>{{ question.title }}</h4>
-    </div>
+    <h4>Questions in this Test</h4>
+    <mat-list *ngFor="let question of test.questions">
+      <mat-list-item>{{ question.title }}</mat-list-item>
+    </mat-list>
   </div>
   <button mat-button (click)="onClose()">Close</button>
 </section>
