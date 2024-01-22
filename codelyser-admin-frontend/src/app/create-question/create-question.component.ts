@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Question } from '../model/question.model';
 import { HttpService } from '../service/http.service';
 import { Router } from '@angular/router';
+import { KeyValuePipe } from '@angular/common';
 
 @Component({
   selector: 'app-create-question',
@@ -43,7 +44,8 @@ export class CreateQuestionComponent implements OnInit {
           this.router.navigate(['/' + 'view-question']);
         },
         (error) => {
-          console.error('Error', error);
+          if (error['status'] === 400) alert(error['error']);
+          else alert('Server not responding');
         }
       );
     } else {

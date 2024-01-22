@@ -2,11 +2,14 @@ package com.accolite.app.serviceImpl;
 
 import com.accolite.app.dto.QuestionDTO;
 import com.accolite.app.entity.Question;
+import com.accolite.app.exception.ApiRequestException;
 import com.accolite.app.repository.QuestionRepository;
 import com.accolite.app.service.QuestionService;
 import com.accolite.app.convertor.ConvertorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,17 +24,24 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public String saveQuestion(QuestionDTO questionDTO) {
-        if (questionDTO.getId() == null) {
-            questionRepository.save(service.convertQuestiontoEntity(questionDTO));
-        } else {
-            Question question = questionRepository.findById(questionDTO.getId()).get();
-            if (questionDTO.getTemplates() != null)
-                question.setTemplates(service.convertTemplatesToEntity(questionDTO.getTemplates(), question));
-            if (questionDTO.getTestcases() != null)
-                question.setTestCases(service.convertTestcasesToEntity(questionDTO.getTestcases(), question));
-            questionRepository.save(question);
+        try {
+            if (questionDTO.getId() == null) {
+                questionRepository.save(service.convertQuestiontoEntity(questionDTO));
+            } else {
+                Question question = questionRepository.findById(questionDTO.getId()).get();
+                if (questionDTO.getTemplates() != null)
+                    question.setTemplates(service.convertTemplatesToEntity(questionDTO.getTemplates(), question));
+                if (questionDTO.getTestcases() != null)
+                    question.setTestCases(service.convertTestcasesToEntity(questionDTO.getTestcases(), question));
+                questionRepository.save(question);
+            }
+            return "Question Saved";
         }
-        return "Question Saved";
+        catch (DataIntegrityViolationException e)
+        {
+            throw new ApiRequestException("Duplicate Question", HttpStatus.BAD_REQUEST);
+        }
+
     }
 
     @Override

@@ -32,7 +32,7 @@ export class ViewQuestionComponent implements OnInit {
         this.dataSource = data;
       },
       (error) => {
-        alert('Error in Getting Question');
+        alert('Server not responding');
       }
     );
   }

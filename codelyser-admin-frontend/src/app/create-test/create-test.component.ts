@@ -35,7 +35,8 @@ export class CreateTestComponent {
         this.router.navigate(['/view-test']);
       },
       (error) => {
-        console.error('Error', error);
+        if (error['status'] === 400) alert(error['error']);
+        else alert('Server not responding');
       }
     );
   }
@@ -60,7 +61,7 @@ export class CreateTestComponent {
           }));
       },
       (error) => {
-        alert('Error in Getting Question');
+        alert('Server not responding');
       }
     );
   }

@@ -38,7 +38,7 @@ export class ViewCandidateComponent implements OnInit {
         }
       },
       (error) => {
-        alert('Error in Getting Candidate Data');
+        alert('Server not responding');
       }
     );
   }
