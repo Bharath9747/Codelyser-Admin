@@ -14,6 +14,7 @@ import com.accolite.app.repository.TestResultRepository;
 import com.accolite.app.service.CandidateService;
 import com.accolite.app.util.UtilityService;
 import lombok.RequiredArgsConstructor;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -48,24 +49,27 @@ public class CandidateServiceImpl implements CandidateService {
     @Override
     public List<CandidateDTO> uploadData(MultipartFile file) {
         if (file.isEmpty()) {
-            return null;
+            throw  new ApiRequestException("File is Empty",HttpStatus.BAD_REQUEST);
         }
-        try (Workbook workbook = new XSSFWorkbook(file.getInputStream())) {
+        try
+        {
+            Workbook workbook = new XSSFWorkbook(file.getInputStream());
             List<CandidateDTO> list = new ArrayList<>();
             Sheet sheet = workbook.getSheetAt(0);
             int rowCount = sheet.getPhysicalNumberOfRows();
             for (int i = 1; i < rowCount; i++) {
                 Row row = sheet.getRow(i);
                 CandidateDTO candidateDTO = new CandidateDTO();
-                candidateDTO.setName(row.getCell(0).toString());
-                candidateDTO.setEmail(row.getCell(1).toString());
-                candidateDTO.setPassword(utilityService.hashPassword(row.getCell(2).toString()));
+                candidateDTO.setName(row.getCell(0).getStringCellValue());
+                candidateDTO.setEmail(row.getCell(1).getStringCellValue());
+                candidateDTO.setPassword(utilityService.hashPassword(candidateDTO.getEmail()));
                 list.add(candidateDTO);
             }
             return list;
         } catch (IOException e) {
-            return null;
+            throw  new ApiRequestException("File Not Found",HttpStatus.NOT_FOUND);
         }
+
 
     }
 

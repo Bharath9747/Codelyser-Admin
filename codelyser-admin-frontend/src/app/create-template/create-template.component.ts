@@ -12,6 +12,7 @@ import { HttpService } from '../service/http.service';
 })
 export class CreateTemplateComponent implements OnInit {
   questionId!: number;
+  questionTitle!: string;
   languages = ['Java', 'Cpp'];
   templates: Template[] = [];
 
@@ -22,6 +23,7 @@ export class CreateTemplateComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.questionId = this.router.snapshot.queryParams['questionId'];
+    this.questionTitle = this.router.snapshot.queryParams['questionTitle'];
     this.templates = this.languages.map((language) => ({
       code: '',
       language: language,
@@ -36,7 +38,6 @@ export class CreateTemplateComponent implements OnInit {
       (data) => {
         alert(data['result']);
         this.route.navigate(['/' + 'view-question']);
-        
       },
       (error) => {
         console.error('Error', error);

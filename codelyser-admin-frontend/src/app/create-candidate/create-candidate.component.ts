@@ -12,10 +12,19 @@ import { Test } from '../model/test.model';
 export class CreateCandidateComponent implements OnInit {
   constructor(private httpService: HttpService, private route: Router) {}
   assign() {
+    if (this.score == undefined) {
+      alert('Select a Test and Click the Get Button');
+      return;
+    }
+    if(this.candidates.length==0)
+    {
+      alert('Upload the Candidate Details First');
+      return;
+    }
     this.selectedTest.candidates = this.candidates;
     this.httpService.assignTest(this.selectedTest).subscribe(
       (data) => {
-        alert('Test Assigned');
+        alert(data['result']);
         this.route.navigate(['/view-candidate']);
       },
       (error) => {
@@ -36,10 +45,10 @@ export class CreateCandidateComponent implements OnInit {
       }
     );
   }
-  
+
   tests: Test[] = [];
   candidates: Candidate[] = [];
-  score: number = 0;
+  score!: number;
   selectedTest: any;
 
   onFileChange(event: any): void {
@@ -48,14 +57,15 @@ export class CreateCandidateComponent implements OnInit {
     if (file) {
       this.httpService.uploadUser(file).subscribe(
         (response) => {
-          if (response.length == 0) alert('Error in Uploading Data');
+          if (response.length == 0) alert('There is no candidate details');
           else {
             alert('Data Uploaded');
             this.candidates = response;
           }
         },
         (error) => {
-          alert('Server not responding');
+          if (error['status'] == 400) alert(error['error']);
+          else alert('Server not responding');
         }
       );
     }

@@ -10,6 +10,7 @@ import { Question } from '../model/question.model';
   styleUrl: './create-testcase.component.scss',
 })
 export class CreateTestcaseComponent {
+  questionTitle!:string;
   testCaseCount: number = 1;
   questionId!: number;
   testCases: TestCase[] = [];
@@ -20,6 +21,8 @@ export class CreateTestcaseComponent {
   ) {}
   ngOnInit(): void {
     this.questionId = this.router.snapshot.queryParams['questionId'];
+    this.questionTitle = this.router.snapshot.queryParams['questionTitle'];
+
     this.generateTestCases();
   }
   generateTestCases() {
@@ -37,7 +40,7 @@ export class CreateTestcaseComponent {
         this.route.navigate(['/view-question']);
       },
       (error) => {
-        alert("Error in Saving Testcases")
+        alert('Error in Saving Testcases');
       }
     );
   }

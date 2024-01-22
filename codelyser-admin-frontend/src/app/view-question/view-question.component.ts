@@ -37,12 +37,13 @@ export class ViewQuestionComponent implements OnInit {
     );
   }
 
-  navigate(questionId: number, page: string) {
-    if (questionId)
+  navigate(question: any, page: string) {
+    if (question) {
+      question = question as Question;
       this.router.navigate(['/' + page], {
-        queryParams: { questionId: questionId },
+        queryParams: { questionId: question.id, questionTitle: question.title },
       });
-    else this.router.navigate(['/' + page]);
+    } else this.router.navigate(['/' + page]);
   }
   openDialog(question: Question) {
     this.dialog.open(QuestionDialogComponent, {
