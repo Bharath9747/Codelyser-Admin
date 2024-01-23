@@ -3,6 +3,7 @@ import { Candidate } from '../model/candidate.model';
 import { Router } from '@angular/router';
 import { HttpService } from '../service/http.service';
 import { Test } from '../model/test.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-create-candidate',
@@ -11,6 +12,7 @@ import { Test } from '../model/test.model';
 })
 export class CreateCandidateComponent implements OnInit {
   constructor(private httpService: HttpService, private route: Router) {}
+  subscriptions: Subscription[] = [];
   assign() {
     if (this.selectedTest == undefined) {
       alert('Select a Test and Click the Get Button');
@@ -21,28 +23,32 @@ export class CreateCandidateComponent implements OnInit {
       return;
     }
     this.selectedTest.candidates = this.candidates;
-    this.httpService.assignTest(this.selectedTest).subscribe(
-      (data) => {
-        alert(data['result']);
-        this.route.navigate(['/view-candidate']);
-      },
-      (error) => {
-        if (error['status'] === 404 || error['status'] === 400)
-          alert(error['error']);
-        else alert('Server not responding');
-      }
+    this.subscriptions.push(
+      this.httpService.assignTest(this.selectedTest).subscribe({
+        next: (data) => {
+          alert(data['result']);
+          this.route.navigate(['/view-candidate']);
+        },
+        error: (error) => {
+          if (error['status'] === 404 || error['status'] === 400)
+            alert(error['error']);
+          else alert('Server not responding');
+        },
+      })
     );
   }
   ngOnInit(): void {
     this.selectedTest = this.selectedTest as Test;
-    this.httpService.getTest().subscribe(
-      (data) => {
-        this.tests = data;
-        if (this.tests.length == 0) alert('Create a Test First');
-      },
-      (error) => {
-        alert('Server not responding');
-      }
+    this.subscriptions.push(
+      this.httpService.getTest().subscribe({
+        next: (data) => {
+          this.tests = data;
+          if (this.tests.length == 0) alert('Create a Test First');
+        },
+        error: (error) => {
+          alert('Server not responding');
+        },
+      })
     );
   }
 
@@ -55,18 +61,20 @@ export class CreateCandidateComponent implements OnInit {
     const file = event.target.files[0];
 
     if (file) {
-      this.httpService.uploadUser(file).subscribe(
-        (response) => {
-          if (response.length == 0) alert('There is no candidate details');
-          else {
-            alert('Data Uploaded');
-            this.candidates = response;
-          }
-        },
-        (error) => {
-          if (error['status'] == 400) alert(error['error']);
-          else alert('Server not responding');
-        }
+      this.subscriptions.push(
+        this.httpService.uploadUser(file).subscribe({
+          next: (response) => {
+            if (response.length == 0) alert('There is no candidate details');
+            else {
+              alert('Data Uploaded');
+              this.candidates = response;
+            }
+          },
+          error: (error) => {
+            if (error['status'] == 400) alert(error['error']);
+            else alert('Server not responding');
+          },
+        })
       );
     }
   }
@@ -76,5 +84,8 @@ export class CreateCandidateComponent implements OnInit {
     }
 
     this.questions += this.selectedTest['totalScore'];
+  }
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 }

@@ -4,6 +4,7 @@ import { Question } from '../model/question.model';
 import { HttpService } from '../service/http.service';
 import { Router } from '@angular/router';
 import { KeyValuePipe } from '@angular/common';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-create-question',
@@ -14,7 +15,7 @@ export class CreateQuestionComponent implements OnInit {
   myForm!: FormGroup;
   levels: string[] = ['Easy', 'Medium', 'Hard'];
   selectedValue!: string;
-
+  subscription!: Subscription;
   constructor(
     private fb: FormBuilder,
     private httpService: HttpService,
@@ -38,18 +39,23 @@ export class CreateQuestionComponent implements OnInit {
     if (this.myForm.valid) {
       const question: Question = this.myForm.value as Question;
 
-      this.httpService.saveQuestion(question).subscribe(
-        (data) => {
+      this.subscription = this.httpService.saveQuestion(question).subscribe({
+        next: (data) => {
           alert(data['result']);
           this.router.navigate(['/' + 'view-question']);
         },
-        (error) => {
+        error: (error) => {
           if (error['status'] === 400) alert(error['error']);
           else alert('Server not responding');
-        }
-      );
+        },
+      });
     } else {
       alert('Enter the Valid Data');
+    }
+  }
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
     }
   }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpService } from '../service/http.service';
 import { Candidate } from '../model/candidate.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-view-candidate',
@@ -9,6 +10,12 @@ import { Candidate } from '../model/candidate.model';
   styleUrl: './view-candidate.component.scss',
 })
 export class ViewCandidateComponent implements OnInit {
+  subscription!: Subscription;
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
   testLabels: string[] = [
     'Test Assigned',
     'Test Started',
@@ -17,8 +24,8 @@ export class ViewCandidateComponent implements OnInit {
   ];
   constructor(private httpService: HttpService) {}
   ngOnInit(): void {
-    this.httpService.getCanidate().subscribe(
-      (data) => {
+    this.subscription = this.httpService.getCanidate().subscribe({
+      next: (data) => {
         if (!data) alert('Create a Candidate First');
         else {
           this.dataSource = data;
@@ -37,10 +44,10 @@ export class ViewCandidateComponent implements OnInit {
           }
         }
       },
-      (error) => {
+      error: (error) => {
         alert('Server not responding');
-      }
-    );
+      },
+    });
   }
   displayedColumns: string[] = [
     'index',
