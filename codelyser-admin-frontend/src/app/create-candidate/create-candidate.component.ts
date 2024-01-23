@@ -12,7 +12,7 @@ import { Test } from '../model/test.model';
 export class CreateCandidateComponent implements OnInit {
   constructor(private httpService: HttpService, private route: Router) {}
   assign() {
-    if (this.questions == undefined) {
+    if (this.selectedTest == undefined) {
       alert('Select a Test and Click the Get Button');
       return;
     }
@@ -27,7 +27,8 @@ export class CreateCandidateComponent implements OnInit {
         this.route.navigate(['/view-candidate']);
       },
       (error) => {
-        if (error['status'] === 400) alert(error['error']);
+        if (error['status'] === 404 || error['status'] === 400)
+          alert(error['error']);
         else alert('Server not responding');
       }
     );
