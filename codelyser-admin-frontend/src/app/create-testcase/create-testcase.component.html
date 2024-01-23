@@ -1,9 +1,13 @@
 <section class="testcase-section">
-  <h4>{{ questionTitle }}</h4>
-  <h5 class="alert" [hidden]="!(questionType == 'Database')">
-    For Sql Question : Input will be DDL Commands to create tables and Output
-    will be output query
-  </h5>
+  <h4>{{ questionTitle }} (Question Id : {{ questionId }})</h4>
+  <div class="alert" [hidden]="!(questionType == 'Database')">
+    <h4>
+      For Sql Question : Input will be DDL Commands to create tables and Output
+      will be output query.
+    </h4>
+    <h5>Add Question Id with your table name.</h5>
+  </div>
+
   <mat-card>
     <p>
       <mat-form-field appearance="fill">

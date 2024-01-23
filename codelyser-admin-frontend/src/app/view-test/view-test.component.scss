@@ -8,3 +8,11 @@
     background-color: rgb(23, 23, 158);
   }
 }
+.button-footer {
+  width: 30%;
+  text-transform: uppercase;
+}
+.button-group {
+  display: flex;
+  justify-content: space-around;
+}

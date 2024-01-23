@@ -14,27 +14,20 @@ import { Subscription } from 'rxjs';
 export class CreateTestComponent {
   constructor(private httpService: HttpService, private router: Router) {}
   questions: Question[] = [];
-  questionIds: number[] = [];
   selectedQuestions: Question[] = [];
   subscriptions: Subscription[] = [];
   title!: string;
+
   onSubmit() {
-    if (this.questionIds.length === 0) {
+    if (this.selectedQuestions.length === 0) {
       alert('Select atleast one question');
       return;
     }
-    if (this.questionIds.length > 4) {
+    if (this.selectedQuestions.length > 4) {
       alert('Select Question range 1 - 4');
       return;
     }
-    for (let index = 0; index < this.questionIds.length; index++) {
-      const element = this.questionIds[index];
 
-      for (let i = 0; i < this.questions.length; i++) {
-        let question = this.questions[i];
-        if (question.id == element) this.selectedQuestions.push(question);
-      }
-    }
     let test = {
       title: this.title,
       totalScore: this.totalScore,
@@ -61,11 +54,7 @@ export class CreateTestComponent {
         next: (data) => {
           this.questions = data
             .filter(
-              (question) =>
-                question.templates &&
-                question.templates.length > 0 &&
-                question.testcases &&
-                question.testcases.length > 0
+              (question) => question.testcases && question.testcases.length > 0
             )
             .map(({ id, title, description, score, level }) => ({
               id,
@@ -83,15 +72,21 @@ export class CreateTestComponent {
   }
   totalScore = 0;
 
-  updateTotalScore(id?: number, score?: number) {
-    if (id && score) {
-      let questionId = this.questionIds.find((i) => i == id);
-      if (!questionId) {
-        this.questionIds.push(id);
-        this.totalScore += score;
-      } else {
-        this.questionIds = this.questionIds.filter((i) => i != id);
-        this.totalScore -= score;
+  updateTotalScore(index: number) {
+    let question = this.questions[index];
+    let questionAlready = this.selectedQuestions.filter((x) => x == question);
+
+    if (questionAlready.length == 1) {
+      if (question.score != undefined) {
+        this.selectedQuestions = this.selectedQuestions.filter(
+          (x) => x != question
+        );
+        this.totalScore -= question.score;
+      }
+    } else {
+      if (question.score != undefined) {
+        this.totalScore += question.score;
+        this.selectedQuestions.push(question);
       }
     }
   }
