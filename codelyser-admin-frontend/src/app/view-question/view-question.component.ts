@@ -11,6 +11,7 @@ import {
   MatDialogTitle,
 } from '@angular/material/dialog';
 import { QuestionDialogComponent } from '../question-dialog/question-dialog.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-view-question',
@@ -20,21 +21,21 @@ import { QuestionDialogComponent } from '../question-dialog/question-dialog.comp
 export class ViewQuestionComponent implements OnInit {
   displayedColumns: string[] = ['index', 'title', 'score', 'level', 'actions'];
   dataSource: Question[] = [];
-
+  subscription!: Subscription;
   constructor(
     private httpService: HttpService,
     private router: Router,
     public dialog: MatDialog
   ) {}
   ngOnInit(): void {
-    this.httpService.getQuestion().subscribe(
-      (data) => {
+    this.subscription = this.httpService.getQuestion().subscribe({
+      next: (data) => {
         this.dataSource = data;
       },
-      (error) => {
+      error: (error) => {
         alert('Server not responding');
-      }
-    );
+      },
+    });
   }
 
   navigate(question: any, page: string) {
@@ -51,5 +52,10 @@ export class ViewQuestionComponent implements OnInit {
       width: '600px',
       height: '500px',
     });
+  }
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 }

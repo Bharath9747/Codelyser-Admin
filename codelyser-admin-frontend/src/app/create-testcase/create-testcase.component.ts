@@ -3,6 +3,7 @@ import { HttpService } from '../service/http.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TestCase } from '../model/testcase.model';
 import { Question } from '../model/question.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-create-testcase',
@@ -10,6 +11,7 @@ import { Question } from '../model/question.model';
   styleUrl: './create-testcase.component.scss',
 })
 export class CreateTestcaseComponent {
+  subscription!: Subscription;
   questionTitle!: string;
   testCaseCount: number = 1;
   questionId!: number;
@@ -39,14 +41,19 @@ export class CreateTestcaseComponent {
       testcases: this.testCases,
     };
 
-    this.httpService.saveQuestion(question).subscribe(
-      (data) => {
+    this.subscription = this.httpService.saveQuestion(question).subscribe({
+      next: (data) => {
         alert(data['result']);
         this.route.navigate(['/view-question']);
       },
-      (error) => {
+      error: (error) => {
         alert('Error in Saving Testcases');
-      }
-    );
+      },
+    });
+  }
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 }

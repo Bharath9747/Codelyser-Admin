@@ -5,6 +5,7 @@ import { Template } from '../model/template.model';
 import { Question } from '../model/question.model';
 import { HttpService } from '../service/http.service';
 import { languages } from '../util/constants';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-create-template',
@@ -16,7 +17,7 @@ export class CreateTemplateComponent implements OnInit {
   questionTitle!: string;
   languages = languages;
   templates: Template[] = [];
-
+  subscription!: Subscription;
   constructor(
     private route: Router,
     private router: ActivatedRoute,
@@ -42,14 +43,19 @@ export class CreateTemplateComponent implements OnInit {
       id: this.questionId,
       templates: filteredTemplates,
     };
-    this.httpService.saveQuestion(question).subscribe(
-      (data) => {
+    this.subscription = this.httpService.saveQuestion(question).subscribe({
+      next: (data) => {
         alert(data['result']);
         this.route.navigate(['/' + 'view-question']);
       },
-      (error) => {
+      error: (error) => {
         console.error('Error', error);
-      }
-    );
+      },
+    });
+  }
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 }

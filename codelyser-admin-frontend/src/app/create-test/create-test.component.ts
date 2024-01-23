@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { HttpService } from '../service/http.service';
 import { Question } from '../model/question.model';
 import { Test } from '../model/test.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-create-test',
@@ -15,6 +16,7 @@ export class CreateTestComponent {
   questions: Question[] = [];
   questionIds: number[] = [];
   selectedQuestions: Question[] = [];
+  subscriptions: Subscription[] = [];
   title!: string;
   onSubmit() {
     if (this.questionIds.length === 0) {
@@ -39,40 +41,44 @@ export class CreateTestComponent {
       questions: this.selectedQuestions,
     } as Test;
 
-    this.httpService.saveTest(test).subscribe(
-      (data) => {
-        alert(data['result']);
-        this.router.navigate(['/view-test']);
-      },
-      (error) => {
-        if (error['status'] === 400) alert(error['error']);
-        else alert('Server not responding');
-      }
+    this.subscriptions.push(
+      this.httpService.saveTest(test).subscribe({
+        next: (data) => {
+          alert(data['result']);
+          this.router.navigate(['/view-test']);
+        },
+        error: (error) => {
+          if (error['status'] === 400) alert(error['error']);
+          else alert('Server not responding');
+        },
+      })
     );
   }
 
   ngOnInit(): void {
-    this.httpService.getQuestion().subscribe(
-      (data) => {
-        this.questions = data
-          .filter(
-            (question) =>
-              question.templates &&
-              question.templates.length > 0 &&
-              question.testcases &&
-              question.testcases.length > 0
-          )
-          .map(({ id, title, description, score, level }) => ({
-            id,
-            title,
-            description,
-            score,
-            level,
-          }));
-      },
-      (error) => {
-        alert('Server not responding');
-      }
+    this.subscriptions.push(
+      this.httpService.getQuestion().subscribe({
+        next: (data) => {
+          this.questions = data
+            .filter(
+              (question) =>
+                question.templates &&
+                question.templates.length > 0 &&
+                question.testcases &&
+                question.testcases.length > 0
+            )
+            .map(({ id, title, description, score, level }) => ({
+              id,
+              title,
+              description,
+              score,
+              level,
+            }));
+        },
+        error: (error) => {
+          alert('Server not responding');
+        },
+      })
     );
   }
   totalScore = 0;
@@ -88,5 +94,8 @@ export class CreateTestComponent {
         this.totalScore -= score;
       }
     }
+  }
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 }
