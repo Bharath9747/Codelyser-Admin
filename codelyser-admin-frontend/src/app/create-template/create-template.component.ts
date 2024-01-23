@@ -15,6 +15,7 @@ import { Subscription } from 'rxjs';
 export class CreateTemplateComponent implements OnInit {
   questionId!: number;
   questionTitle!: string;
+
   languages = languages;
   templates: Template[] = [];
   subscription!: Subscription;
@@ -24,8 +25,9 @@ export class CreateTemplateComponent implements OnInit {
     private httpService: HttpService
   ) {}
   ngOnInit(): void {
-    this.questionId = this.router.snapshot.queryParams['questionId'];
-    this.questionTitle = this.router.snapshot.queryParams['questionTitle'];
+    this.questionId = this.router.snapshot.queryParams['id'];
+    this.questionTitle = this.router.snapshot.queryParams['title'];
+
     this.templates = this.languages.map((language) => ({
       code: '',
       language: language,

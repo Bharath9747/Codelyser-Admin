@@ -9,4 +9,5 @@ export interface Question {
   score?: number;
   templates?: Template[];
   testcases?: TestCase[];
+  type?: string;
 }

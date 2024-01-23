@@ -82,7 +82,6 @@ export class CreateCandidateComponent implements OnInit {
     for (let index = 0; index < this.selectedTest.questions.length; index++) {
       this.questions += this.selectedTest.questions[index]['title'] + ' , ';
     }
-
     this.questions += this.selectedTest['totalScore'];
   }
   ngOnDestroy(): void {

@@ -1,56 +1,53 @@
 <section class="form">
-  <mat-card class="alert"
-    ><input
-      color="primary"
-      class="button-footer"
-      type="file"
-      accept=".xlsx, .xls"
-      (change)="onFileChange($event)"
-    />
+  <mat-card class="alert">
+    <div class="button-group">
+      <input
+        color="primary"
+        class="button-footer"
+        type="file"
+        accept=".xlsx, .xls"
+        (change)="onFileChange($event)"
+      />
+    </div>
     <p>(Column Name : Candidate Name & Candidate Email)</p>
   </mat-card>
   <mat-card>
-    <form>
-      <p class="testsection">
-        <mat-form-field>
-          <mat-label>Test Title</mat-label>
-          <mat-select [(ngModel)]="selectedTest" name="selectedTest">
-            <mat-option *ngFor="let test of tests" [value]="test">
-              {{ test.title }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <button mat-raised-button color="primary" (click)="getScore()">
-          Get
-        </button>
-      </p>
-      <p>
-        <mat-form-field appearance="fill">
-          <mat-label>Question Names , Test Score</mat-label>
-          <input
-            matInput
-            placeholder="Test Score"
-            [value]="questions"
-            readonly
-          />
-        </mat-form-field>
-      </p>
-      <table class="mat-table">
-        <thead>
-          <tr>
-            <th>Index</th>
-            <th>Name</th>
-            <th>Email</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let candidate of candidates; let i = index">
-            <td>{{ i + 1 }}</td>
-            <td>{{ candidate.name }}</td>
-            <td>{{ candidate.email }}</td>
-          </tr>
-        </tbody>
-      </table>
+    <p class="testsection">
+      <mat-form-field>
+        <mat-label>Test Title</mat-label>
+        <mat-select [(ngModel)]="selectedTest" name="selectedTest">
+          <mat-option *ngFor="let test of tests" [value]="test">
+            {{ test.title }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)="getScore()">
+        Get
+      </button>
+    </p>
+    <p>
+      <mat-form-field appearance="fill">
+        <mat-label>Question Names , Test Score</mat-label>
+        <input matInput placeholder="Test Score" [value]="questions" readonly />
+      </mat-form-field>
+    </p>
+    <table class="mat-table">
+      <thead>
+        <tr>
+          <th>Index</th>
+          <th>Name</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let candidate of candidates; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ candidate.name }}</td>
+          <td>{{ candidate.email }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="button-group">
       <button
         mat-raised-button
         color="primary"
@@ -67,6 +64,6 @@
       >
         Back
       </button>
-    </form>
+    </div>
   </mat-card>
 </section>

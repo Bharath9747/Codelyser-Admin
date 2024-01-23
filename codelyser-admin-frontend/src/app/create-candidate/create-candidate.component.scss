@@ -10,9 +10,14 @@
       width: 100%;
     }
   }
-  .alert {
-    text-align: center;
-    color: red;
+  .button-footer {
+    width: 30%;
+    text-transform: uppercase;
+  }
+  .button-group {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
   }
   .testsection {
     display: flex;

@@ -44,12 +44,13 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
 </div>
-
-<button
-  mat-raised-button
-  color="primary"
-  class="button-footer"
-  routerLink="/create-candidate"
->
-  Create candidate
-</button>
+<div class="button-group">
+  <button
+    mat-raised-button
+    color="primary"
+    class="button-footer"
+    routerLink="/create-candidate"
+  >
+    Create candidate
+  </button>
+</div>

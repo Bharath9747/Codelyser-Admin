@@ -25,7 +25,7 @@ public class Question {
     private String description;
     private String level;
     private Integer score;
-
+    private String type;
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<TestCase> testCases;

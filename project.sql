@@ -6,4 +6,5 @@ select * from question;
 select * from template;
 select * from testcase;
 
+select * from test_question;
 select * from candidate_test;
