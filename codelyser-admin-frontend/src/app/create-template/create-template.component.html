@@ -3,27 +3,28 @@
   <mat-card class="mat-card">
     <textarea
       *ngFor="let language of languages; let i = index"
-      
       rows="10"
       placeholder="{{ language }} code"
       [(ngModel)]="templates[i].code"
     ></textarea>
   </mat-card>
-  <button
-    mat-raised-button
-    color="primary"
-    class="button-footer"
-    (click)="onSubmit()"
-  >
-    Save Template
-  </button>
+  <div class="button-group">
+    <button
+      mat-raised-button
+      color="primary"
+      class="button-footer"
+      (click)="onSubmit()"
+    >
+      Save Template
+    </button>
 
-  <button
-    mat-raised-button
-    color="primary"
-    class="button-footer"
-    routerLink="/view-question"
-  >
-    Back
-  </button>
+    <button
+      mat-raised-button
+      color="primary"
+      class="button-footer"
+      routerLink="/view-question"
+    >
+      Back
+    </button>
+  </div>
 </section>

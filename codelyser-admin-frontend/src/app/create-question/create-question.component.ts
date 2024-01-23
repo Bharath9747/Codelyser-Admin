@@ -5,6 +5,7 @@ import { HttpService } from '../service/http.service';
 import { Router } from '@angular/router';
 import { KeyValuePipe } from '@angular/common';
 import { Subscription } from 'rxjs';
+import { levels, types } from '../util/constants';
 
 @Component({
   selector: 'app-create-question',
@@ -13,7 +14,8 @@ import { Subscription } from 'rxjs';
 })
 export class CreateQuestionComponent implements OnInit {
   myForm!: FormGroup;
-  levels: string[] = ['Easy', 'Medium', 'Hard'];
+  levels = levels;
+  types = types;
   selectedValue!: string;
   subscription!: Subscription;
   constructor(
@@ -32,6 +34,7 @@ export class CreateQuestionComponent implements OnInit {
       description: ['', Validators.required],
       level: ['', Validators.required],
       score: [0, [Validators.required, Validators.min(0), Validators.max(100)]],
+      type: ['', Validators.required],
     });
   }
 

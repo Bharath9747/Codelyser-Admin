@@ -19,7 +19,7 @@ import { Subscription } from 'rxjs';
   styleUrl: './view-question.component.scss',
 })
 export class ViewQuestionComponent implements OnInit {
-  displayedColumns: string[] = ['index', 'title', 'score', 'level', 'actions'];
+  displayedColumns: string[] = ['index', 'title', 'type', 'level', 'actions'];
   dataSource: Question[] = [];
   subscription!: Subscription;
   constructor(
@@ -42,7 +42,11 @@ export class ViewQuestionComponent implements OnInit {
     if (question) {
       question = question as Question;
       this.router.navigate(['/' + page], {
-        queryParams: { questionId: question.id, questionTitle: question.title },
+        queryParams: {
+          id: question.id,
+          title: question.title,
+          type: question.type,
+        },
       });
     } else this.router.navigate(['/' + page]);
   }

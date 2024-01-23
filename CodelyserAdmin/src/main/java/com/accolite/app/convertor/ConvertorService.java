@@ -13,6 +13,7 @@ public class ConvertorService {
     public Question convertQuestiontoEntity(QuestionDTO questionDTO) {
         Question question = new Question();
         question.setTitle(questionDTO.getTitle());
+        question.setType(questionDTO.getType());
         question.setDescription(questionDTO.getDescription());
         question.setLevel(questionDTO.getLevel());
         question.setScore(questionDTO.getScore());
@@ -48,6 +49,7 @@ public class ConvertorService {
         dto.setId(question.getId());
         dto.setDescription(question.getDescription());
         dto.setTitle(question.getTitle());
+        dto.setType(question.getType());
         dto.setScore(question.getScore());
         dto.setLevel(question.getLevel());
         if (question.getTemplates() != null)
@@ -117,7 +119,6 @@ public class ConvertorService {
 
 
     public TestDTO convertTestToDTO(Test test) {
-
         TestDTO dto = new TestDTO();
         dto.setId(test.getId());
         dto.setTitle(test.getTitle());

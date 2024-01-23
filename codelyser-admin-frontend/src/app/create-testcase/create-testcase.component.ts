@@ -13,22 +13,31 @@ import { Subscription } from 'rxjs';
 export class CreateTestcaseComponent {
   subscription!: Subscription;
   questionTitle!: string;
-  testCaseCount: number = 1;
+  testCaseCount: number = 0;
   questionId!: number;
+  questionType!: string;
   testCases: TestCase[] = [];
+  disableButton: boolean = false;
   constructor(
     private httpService: HttpService,
     private route: Router,
     private router: ActivatedRoute
   ) {}
   ngOnInit(): void {
-    this.questionId = this.router.snapshot.queryParams['questionId'];
-    this.questionTitle = this.router.snapshot.queryParams['questionTitle'];
-
-    this.generateTestCases();
+    this.questionId = this.router.snapshot.queryParams['id'];
+    this.questionTitle = this.router.snapshot.queryParams['title'];
+    this.questionType = this.router.snapshot.queryParams['type'];
+    if (this.questionType == 'Database') {
+      this.testCaseCount = 1;
+      this.generateTestCases();
+    }
   }
   generateTestCases() {
-    this.testCases = Array(this.testCaseCount).fill({ input: '', output: '' });
+    this.testCases = [];
+    for (let i = 0; i < this.testCaseCount; i++) {
+      this.testCases.push({ input: '', output: '' });
+    }
+    this.disableButton = true;
   }
 
   onSubmit() {
@@ -36,6 +45,7 @@ export class CreateTestcaseComponent {
       alert('Atleast 1 Testcase needed to save the question');
       return;
     }
+
     const question: Question = {
       id: this.questionId,
       testcases: this.testCases,
