@@ -3,7 +3,11 @@
   padding: 0;
   margin: 0;
 }
-
+.alert {
+  text-align: center;
+  color: red;
+  text-transform: uppercase;
+}
 mat-sidenav-container {
   height: calc(205vh - 115vh);
 }

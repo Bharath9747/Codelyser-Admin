@@ -1,6 +1,9 @@
 <section class="testcase-section">
   <h4>{{ questionTitle }}</h4>
-
+  <p class="alert">
+    For Sql Question : Input will be DDL Commands to create tables and Output
+    will be output query
+  </p>
   <mat-card>
     <p>
       <mat-form-field appearance="fill">
@@ -15,14 +18,16 @@
       </mat-form-field>
     </p>
     <p *ngFor="let testCase of testCases; let i = index">
-      <mat-form-field appearance="fill">
-        <mat-label>Input {{ i + 1 }}</mat-label>
-        <input matInput [(ngModel)]="testCase.input" />
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>Output {{ i + 1 }}</mat-label>
-        <input matInput [(ngModel)]="testCase.output" />
-      </mat-form-field>
+      <textarea
+        [(ngModel)]="testCase.input"
+        placeholder="Input {{ i + 1 }}"
+        rows="5"
+      ></textarea>
+      <textarea
+        [(ngModel)]="testCase.output"
+        placeholder="Output {{ i + 1 }}"
+        rows="5"
+      ></textarea>
     </p>
     <button
       mat-raised-button

@@ -3,7 +3,7 @@
   <mat-card class="mat-card">
     <textarea
       *ngFor="let language of languages; let i = index"
-      cols="30"
+      
       rows="10"
       placeholder="{{ language }} code"
       [(ngModel)]="templates[i].code"
