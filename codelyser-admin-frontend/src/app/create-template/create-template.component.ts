@@ -31,9 +31,16 @@ export class CreateTemplateComponent implements OnInit {
     }));
   }
   onSubmit() {
+    const filteredTemplates = this.templates.filter(
+      (template) => template.code?.trim() !== ''
+    );
+    if (filteredTemplates.length === 0) {
+      alert('Atleast one Template needed to save the question');
+      return;
+    }
     const question: Question = {
       id: this.questionId,
-      templates: this.templates,
+      templates: filteredTemplates,
     };
     this.httpService.saveQuestion(question).subscribe(
       (data) => {
