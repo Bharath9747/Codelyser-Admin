@@ -10,7 +10,7 @@ import { Question } from '../model/question.model';
   styleUrl: './create-testcase.component.scss',
 })
 export class CreateTestcaseComponent {
-  questionTitle!:string;
+  questionTitle!: string;
   testCaseCount: number = 1;
   questionId!: number;
   testCases: TestCase[] = [];
@@ -30,10 +30,15 @@ export class CreateTestcaseComponent {
   }
 
   onSubmit() {
+    if (this.testCaseCount === 0) {
+      alert('Atleast 1 Testcase needed to save the question');
+      return;
+    }
     const question: Question = {
       id: this.questionId,
       testcases: this.testCases,
     };
+
     this.httpService.saveQuestion(question).subscribe(
       (data) => {
         alert(data['result']);

@@ -12,12 +12,11 @@ import { Test } from '../model/test.model';
 export class CreateCandidateComponent implements OnInit {
   constructor(private httpService: HttpService, private route: Router) {}
   assign() {
-    if (this.score == undefined) {
+    if (this.questions == undefined) {
       alert('Select a Test and Click the Get Button');
       return;
     }
-    if(this.candidates.length==0)
-    {
+    if (this.candidates.length == 0) {
       alert('Upload the Candidate Details First');
       return;
     }
@@ -48,7 +47,7 @@ export class CreateCandidateComponent implements OnInit {
 
   tests: Test[] = [];
   candidates: Candidate[] = [];
-  score!: number;
+  questions: string = '';
   selectedTest: any;
 
   onFileChange(event: any): void {
@@ -71,6 +70,10 @@ export class CreateCandidateComponent implements OnInit {
     }
   }
   getScore() {
-    this.score = this.selectedTest.totalScore;
+    for (let index = 0; index < this.selectedTest.questions.length; index++) {
+      this.questions += this.selectedTest.questions[index]['title'] + ' , ';
+    }
+
+    this.questions += this.selectedTest['totalScore'];
   }
 }
