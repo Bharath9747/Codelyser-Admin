@@ -13,6 +13,7 @@ export class HttpService {
   private apiQuestion = 'http://localhost:8080/question';
   private apiTest = 'http://localhost:8080/test';
   private apiCandidate = 'http://localhost:8080/candidate';
+  private apiSql = 'http://localhost:8080/code';
 
   constructor(private http: HttpClient) {}
   uploadUser(file: File): Observable<Candidate[]> {
@@ -58,5 +59,18 @@ export class HttpService {
   }
   getCanidate(): Observable<Candidate[]> {
     return this.http.get<Candidate[]>(`${this.apiCandidate}/all`);
+  }
+  getCode(): Observable<{ [key: string]: string }> {
+    return this.http.get<{ [key: string]: string }>(`${this.apiSql}/get`);
+  }
+  submitCode(code: string): Observable<{ [key: string]: string }> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    const options = { headers: headers };
+    const submittedCode ={code:code}
+    return this.http.post<{ [key: string]: string }>(
+      `${this.apiSql}/submit`,
+      submittedCode,
+      options
+    );
   }
 }

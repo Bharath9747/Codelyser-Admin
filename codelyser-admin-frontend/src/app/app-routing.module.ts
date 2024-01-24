@@ -9,7 +9,7 @@ import { CreateTestComponent } from './create-test/create-test.component';
 
 import { CreateTestcaseComponent } from './create-testcase/create-testcase.component';
 import { ViewQuestionComponent } from './view-question/view-question.component';
-import { CreateTemplateComponent } from './create-template/create-template.component';
+
 import { ViewTestComponent } from './view-test/view-test.component';
 import { ViewCandidateComponent } from './view-canidate/view-candidate.component';
 
@@ -27,10 +27,7 @@ const routes: Routes = [
     path: 'create-testcase',
     component: CreateTestcaseComponent,
   },
-  {
-    path: 'create-template',
-    component: CreateTemplateComponent,
-  },
+
   {
     path: 'view-question',
     component: ViewQuestionComponent,

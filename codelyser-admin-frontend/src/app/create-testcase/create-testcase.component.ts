@@ -17,7 +17,7 @@ export class CreateTestcaseComponent {
   questionId!: number;
   questionType!: string;
   testCases: TestCase[] = [];
-  disableButton: boolean = false;
+  hideField: boolean = false;
   constructor(
     private httpService: HttpService,
     private route: Router,
@@ -37,7 +37,7 @@ export class CreateTestcaseComponent {
     for (let i = 0; i < this.testCaseCount; i++) {
       this.testCases.push({ input: '', output: '' });
     }
-    this.disableButton = true;
+    this.hideField = true;
   }
 
   onSubmit() {

@@ -15,6 +15,7 @@ public class ConvertorService {
         question.setTitle(questionDTO.getTitle());
         question.setType(questionDTO.getType());
         question.setDescription(questionDTO.getDescription());
+
         question.setLevel(questionDTO.getLevel());
         question.setScore(questionDTO.getScore());
         return question;

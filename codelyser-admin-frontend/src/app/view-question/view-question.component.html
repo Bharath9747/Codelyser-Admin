@@ -28,16 +28,7 @@
         >
           Create TestCase
         </button>
-        <button
-          mat-button
-          (click)="navigate(element, 'create-template')"
-          [disabled]="
-            (element.type == 'Algorithms' && element.templates.length != 0) ||
-            (element.type == 'Database' && element.templates.length == 0)
-          "
-        >
-          Create Template
-        </button>
+
         <button mat-button (click)="openDialog(element)">View Question</button>
       </td>
     </ng-container>

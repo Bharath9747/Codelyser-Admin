@@ -8,3 +8,11 @@ select * from testcase;
 
 select * from test_question;
 select * from candidate_test;
+
+create database dummy;
+drop database dummy;
+use dummy;
+show tables;
+
+select * from student_1;
+select * from address_1;
