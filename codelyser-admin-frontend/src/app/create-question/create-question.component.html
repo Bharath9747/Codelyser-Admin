@@ -27,15 +27,40 @@
           </mat-select>
         </mat-form-field>
       </p>
+
       <p>
         <mat-form-field>
           <mat-label>Question Type</mat-label>
-          <mat-select formControlName="type">
+          <mat-select formControlName="type" (selectionChange)="OnChange()">
             <mat-option *ngFor="let type of types" [value]="type">{{
               type
             }}</mat-option>
           </mat-select>
         </mat-form-field>
+      </p>
+      <div class="language-section" [hidden]="!languages">
+        <mat-label [hidden]="languages" class="alert"
+          >Click the type to display languages for coding</mat-label
+        >
+        <div class="checkbox-container" *ngFor="let language of languages">
+          <input
+            type="checkbox"
+            class="styled-checkbox"
+            (change)="onSelect(language)"
+          />
+          <label for="myCheckbox" class="checkbox-label">{{ language }}</label>
+        </div>
+      </div>
+      <p>
+        <textarea
+          class="template"
+          *ngFor="let lang of displayTextArea | keyvalue; let i = index"
+          [hidden]="!lang.value"
+          [(ngModel)]="templates[lang.key]"
+          rows="5"
+          [ngModelOptions]="{ standalone: true }"
+        >
+        </textarea>
       </p>
       <p>
         <mat-form-field>

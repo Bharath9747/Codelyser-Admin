@@ -9,7 +9,7 @@
   </div>
 
   <mat-card>
-    <p>
+    <p [hidden]="hideField">
       <mat-form-field appearance="fill">
         <mat-label>TestCase Count</mat-label>
         <input
@@ -18,7 +18,6 @@
           min="1"
           [(ngModel)]="testCaseCount"
           (change)="generateTestCases()"
-          [disabled]="disableButton"
         />
       </mat-form-field>
     </p>

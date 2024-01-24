@@ -24,7 +24,6 @@ import { MatSelectModule } from '@angular/material/select';
 
 import { ViewQuestionComponent } from './view-question/view-question.component';
 import { CreateTestcaseComponent } from './create-testcase/create-testcase.component';
-import { CreateTemplateComponent } from './create-template/create-template.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -42,10 +41,8 @@ import { TestDialogComponent } from './test-dialog/test-dialog.component';
     NotFoundComponent,
     CreateCandidateComponent,
     CreateTestComponent,
-
     ViewQuestionComponent,
     CreateTestcaseComponent,
-    CreateTemplateComponent,
     QuestionDialogComponent,
     ViewTestComponent,
     ViewCandidateComponent,

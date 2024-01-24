@@ -5,7 +5,8 @@ import { HttpService } from '../service/http.service';
 import { Router } from '@angular/router';
 import { KeyValuePipe } from '@angular/common';
 import { Subscription } from 'rxjs';
-import { levels, types } from '../util/constants';
+import { languages, levels, types } from '../util/constants';
+import { Template } from '../model/template.model';
 
 @Component({
   selector: 'app-create-question',
@@ -17,6 +18,10 @@ export class CreateQuestionComponent implements OnInit {
   levels = levels;
   types = types;
   selectedValue!: string;
+  selectedLanguages: string[] = [];
+  languages!: string[];
+  displayTextArea: { [key: string]: boolean } = {};
+  templates: { [key: string]: string } = {};
   subscription!: Subscription;
   constructor(
     private fb: FormBuilder,
@@ -37,11 +42,36 @@ export class CreateQuestionComponent implements OnInit {
       type: ['', Validators.required],
     });
   }
-
+  OnChange() {
+    if (this.myForm.value['type'] != 'Database') {
+      this.languages = languages[this.myForm.value['type']];
+      for (let index = 0; index < this.languages.length; index++) {
+        const element = this.languages[index];
+        this.displayTextArea[element] = false;
+        this.templates[element] = '';
+      }
+    } else {
+      this.languages = [];
+      this.displayTextArea = {};
+      this.templates = {};
+    }
+  }
+  onSelect(language: string) {
+    this.displayTextArea[language] = !this.displayTextArea[language];
+  }
   onSubmit() {
     if (this.myForm.valid) {
+      let filteredTemplate: Template[] = [];
+      for (let obj in this.templates) {
+        if (this.templates[obj] != '') {
+          filteredTemplate.push({
+            code: this.templates[obj],
+            language: obj,
+          });
+        }
+      }
       const question: Question = this.myForm.value as Question;
-
+      question.templates = filteredTemplate;
       this.subscription = this.httpService.saveQuestion(question).subscribe({
         next: (data) => {
           alert(data['result']);

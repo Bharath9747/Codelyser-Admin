@@ -26,11 +26,12 @@ public class QuestionServiceImpl implements QuestionService {
     public String saveQuestion(QuestionDTO questionDTO) {
         try {
             if (questionDTO.getId() == null) {
-                questionRepository.save(service.convertQuestiontoEntity(questionDTO));
-            } else {
-                Question question = questionRepository.findById(questionDTO.getId()).get();
+                Question question=questionRepository.save(service.convertQuestiontoEntity(questionDTO));
                 if (questionDTO.getTemplates() != null)
                     question.setTemplates(service.convertTemplatesToEntity(questionDTO.getTemplates(), question));
+                questionRepository.save(question);
+            } else {
+                Question question = questionRepository.findById(questionDTO.getId()).get();
                 if (questionDTO.getTestcases() != null)
                     question.setTestCases(service.convertTestcasesToEntity(questionDTO.getTestcases(), question));
                 questionRepository.save(question);
